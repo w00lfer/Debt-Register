@@ -1,12 +1,18 @@
-﻿using System.Collections;
+﻿using Rest_API.Models;
 using System.Collections.Generic;
-using Rest_API.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rest_API.Repositories.Interfaces
 {
     public interface IDebtRepository
     {
-        IEnumerable<Debt> GetAllLentDebts(int lenderId, int? borrowerId);
-        IEnumerable<Debt> GetAllBorrowedDebts(int borrowerId, int? lenderId);
+        Task<IQueryable<Debt>> GetAllLentDebts(int lenderId);
+        Task<IQueryable<Debt>> GetAllBorrowedDebts(int borrowerId);
+        Task<Debt> GetDebtById(int debtId);
+        Task AddDebt(Debt debt);
+        Task EditDebt(Debt debt);
+        Task DeleteDebt(Debt debt);    
+        
     }
 }

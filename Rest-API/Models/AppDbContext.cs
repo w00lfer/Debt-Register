@@ -3,14 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Rest_API.Models
 {
-    public class DbContext : IdentityDbContext
+    public class AppDbContext : IdentityDbContext
     {
-        public DbContext(DbContextOptions options) : base(options)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
 
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Debt> Debts { get; set; }
+        public DbSet<LocalUser> LocalUsers { get; set; }
     }
 }

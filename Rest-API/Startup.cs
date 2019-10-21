@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Rest_API.Models;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Identity;
-using DbContext = Microsoft.EntityFrameworkCore.DbContext;
 
 namespace Rest_API
 {
@@ -24,9 +22,9 @@ namespace Rest_API
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddDbContext<DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
             services.AddDefaultIdentity<User>()
-                .AddEntityFrameworkStores<DbContext>();
+                .AddEntityFrameworkStores<AppDbContext>();
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;

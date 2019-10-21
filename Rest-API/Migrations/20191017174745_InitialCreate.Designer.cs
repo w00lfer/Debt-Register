@@ -9,7 +9,7 @@ using Rest_API.Models;
 
 namespace Rest_API.Migrations
 {
-    [DbContext(typeof(AuthenticationDbContext))]
+    [DbContext(typeof(AppContext))]
     [Migration("20191017174745_InitialCreate")]
     partial class InitialCreate
     {

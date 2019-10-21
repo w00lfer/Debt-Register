@@ -29,7 +29,7 @@ namespace Rest_API.Controllers
                 Email = userModel.Email,
                 FullName = userModel.FullName
             };
-
+                
             try
             {
                 var result = await _userManager.CreateAsync(user, userModel.Password);
