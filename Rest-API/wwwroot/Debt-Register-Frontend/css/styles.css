@@ -1,11 +1,11 @@
-﻿html * {
+﻿html {
     font-family: 'Roboto', sans-serif;
     
 }
-.my-container{
+body {
     height: 100vh;
-    width: 100vw;
 }
+
 .finance-image{
     background-image: url(/css/images/finance.jpg);
     background-repeat: no-repeat;
@@ -30,4 +30,8 @@ nav
 footer
 {
  height: 3vh
+}
+
+.my-container {
+    padding: 0 !important;
 }
