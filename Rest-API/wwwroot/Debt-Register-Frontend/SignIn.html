@@ -1,53 +1,49 @@
 ﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="css/styles.css">
     <meta name="viewport" content="width=device-width" />
-    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bootstrap-4.3.1-dist/css/bootstrap.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-    <script src="js/scripts.js"></script>
-    <navbar class="nav  navbar-static-top" style="background:aqua">
-        <div class="navbar-brand">
-            <a href="Index.html">Moje</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse">
+            <a class="nav-item nav-link" href="Index.html">Moje</a>
+            <a class="nav-item nav-link" href="homepage.html">Twoje</a>
         </div>
-        <div class="navbar-brand">
-            <a href="homepage.html">Twoje</a>
-        </div>
-        <div class="navbar-brand navbar-right" style="padding-right:50px">
-            <a href="SignIn.html">Account</a>
-        </div>
-    </navbar>
-    <div class="thumbnail col-md-offset-4 col-md-4">
-        <div id="form">
-            <div class="form-group">
-                <label class="control-label">REGISTER</label>
+        <a class="nav-item nav-link navbar-right " style="padding-right: 50px" href="SignIn.html">Account</a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="my-5 offset-4 col-md-3">
+        <div style="background: aquamarine">
+            <div>
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-8">
-                    <label class="control-label">Email</label>
-                    <input class="form-control" type="text" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-8">
-                    <label class="control-label">Password</label>
-                    <input class="form-control" id="password" type="text" />
-                </div>
-            </div>
-            <div class="form-group">
-                <button class="btn-group-sm" id="inp">LogIn</button>
-            </div>
-            <div class="form-control" style="background-color:lightgray" />
-            <label class="control-label">Don't have account?</label>
-            <a href="SignUp.html">Sign up</a>
         </div>
     </div>
-    </div>
-    <script src="js/scripts.js"></script>
+
+</div>
+<script src="js/scripts.js"></script>
 </body>
 </html>
