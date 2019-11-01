@@ -1,5 +1,5 @@
 var isLoggedIn = false;
-Console.log("dsadsa");
+console.log("dsadsa");
 $('#inp').click(function(e) {
     var myData = {
         Username: $('#username').val(),
@@ -21,9 +21,18 @@ $('#inp').click(function(e) {
 
     return false;
 });
-var modal = document.querySelector(".login-modal");
-var button = document.querySelector("#account1");
-button.addEventListener("click", function (e) {
-    Console.log("hello");
-    modal.classList.toggle("show-modal");
-});
+
+$("#btnLogin").click(function(event) {
+    if ($("#formLogin")[0].checkValidity() === false) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    else
+    {
+        event.preventDefault();
+        window.location.href = "Summary.html";
+    }
+  });
+$("#signUp").click(function(event) {
+    window.location.href = "SignUp.html";
+})

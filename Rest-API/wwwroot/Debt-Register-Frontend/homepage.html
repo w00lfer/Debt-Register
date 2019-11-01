@@ -4,39 +4,93 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="css/styles.css" />
     <meta name="viewport" content="width=device-width" />
-    <link href="bootstrap-4.3.1-dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link
       href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
       rel="stylesheet"
     />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
 
   <body>
-    <div class="container-fluid my-container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Debt register</a>
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="Homepage.html">Debt register</a>
         <ul class="ml-md-auto my-3">
-          <a class="nav-item" href="#">Sign up</a>
-          <a class="nav-item" href="#">Sign in</a>
+          <a class="nav-item" href="SignUp.html">Sign up</a>
+          <a role="button"  data-toggle="modal" class="nav-item" href="#loginModal">Sign in</a>
         </ul>
       </nav>
-      <div class="container-fluid theme finance-image">
-
+      <div class="container-fluid my-container">
+          <div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h3>Sign in</h3>
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      </div>
+                      <div class="modal-body">
+                          <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
+                              <div class="form-group">
+                                  <input type="text" class="form-control form-control-lg" name="uname1" id="uname1" required="" placeholder="Username">
+                                  <div class="invalid-feedback">Oops, you missed this one.</div>
+                              </div>
+                              <div class="form-group">
+                                  <input type="password" class="form-control form-control-lg" id="pwd1" required="" autocomplete="new-password" placeholder="Password">
+                                  <div class="invalid-feedback">Enter your password too!</div>
+                              </div>
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="rememberMe">
+                                <label class="custom-control-label" for="rememberMe">Remember me on this computer</label>
+                              </div>
+                              <div class="form-group py-4">
+                                  <button class="btn btn-outline-secondary btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                  <button type="submit" class="btn btn-secondary btn-lg float-right" id="btnLogin">Login</button>
+                              </div>
+                          </form>
+                          <div class="form-group">
+                              <label class="label">Doesn't have you account?</label>
+                              <button class="btn btn-outline btn-lg btn-secondary" id="signUp" data-dismiss="modal" aria-hidden="true" href="SignUp.html">Sign Up in Debt Register!</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      
+      <div class="container-fluid theme">
+        <div class="theme__block">
+          <a class="theme__block-motto">You have never tracked your debts that good before!</a>
+        </div>
       </div>
       <div class="container-fluid bottom row ml-0">
-        <div class="offset-2 col-md-2" style="background-color: red;">
-          
+        <div class="offset-2 col-md-2 bottom__block">
+          <div class="block__icon">
+              <img class="block__icon-image" src="css/images/fast.svg"></img>
+          </div>
+          <div class="block__text">
+              <a>Fast and easy to use</a>
+          </div>
         </div>
-        <div class="offset-1 col-md-2" style="background-color: aqua;">
-
+        <div class="offset-1 col-md-2 bottom__block">
+          <div class="block__icon">
+              <img  class="block__icon-image" src="css/images/remember.svg"></img>
+          </div>
+          <div class="block__text">
+              <a>You will never forget your debt again</a>
+          </div>  
         </div>
-        <div class="offset-1 col-md-2" style="background-color: brown;">
-
+        <div class="offset-1 col-md-2 bottom__block">
+            <div class="block__icon">
+                <img class="block__icon-image" src="css/images/free.svg"></img>
+            </div>
+            <div class="block__text">
+                <a>Completely free tool to track your debts</a>
+            </div>
         </div>
       </div>
     </div>
     <footer></footer>
     <script src="js/scripts.js"></script>
   </body>
-</html>
+</html> 
