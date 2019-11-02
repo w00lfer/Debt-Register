@@ -112,3 +112,11 @@ footer
     background: linear-gradient(67deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
     height: 3%;
 }
+
+#SignUpModalContainer{
+    top: 10%;
+    background-color: gainsboro
+}
+#signUpButton
+{
+}

@@ -1,91 +1,129 @@
 ﻿<!DOCTYPE html>
 
-<html></html>
+<html>
+
 <head>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="css/styles.css" />
-        <meta name="viewport" content="width=device-width" />
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link
-          href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-  <body>
-      <nav class="navbar navbar-expand-lg">
-          <a class="navbar-brand" href="Homepage.html">Debt register</a>
-          <ul class="ml-md-auto my-3">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="Homepage.html">Debt register</a>
+        <ul class="ml-md-auto my-3">
             <a class="nav-item" href="SignUp.html">Sign up</a>
-            <a role="button"  data-toggle="modal" class="nav-item" href="#loginModal">Sign in</a>
-          </ul>
-        </nav>
+            <a role="button" data-toggle="modal" class="nav-item" href="#loginModal">Sign in</a>
+        </ul>
+    </nav>
     <div class="container-fluid my-container">
         <div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3>Sign in</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×
+                        </button>
                     </div>
                     <div class="modal-body">
                         <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" name="uname1" id="uname1" required="" placeholder="Username">
+                                <input type="text" class="form-control form-control-lg" name="uname1" id="uname1"
+                                    required="" placeholder="Username" />
                                 <div class="invalid-feedback">Oops, you missed this one.</div>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control form-control-lg" id="pwd1" required="" autocomplete="new-password" placeholder="Password">
+                                <input type="password" class="form-control form-control-lg" id="pwd1" required=""
+                                    autocomplete="new-password" placeholder="Password" />
                                 <div class="invalid-feedback">Enter your password too!</div>
                             </div>
                             <div class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input" id="rememberMe">
-                              <label class="custom-control-label" for="rememberMe">Remember me on this computer</label>
+                                <input type="checkbox" class="custom-control-input" id="rememberMe" />
+                                <label class="custom-control-label" for="rememberMe">Remember me on this
+                                    computer</label>
                             </div>
                             <div class="form-group py-4">
-                                <button class="btn btn-outline-secondary btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
+                                <button class="btn btn-outline-secondary btn-lg" data-dismiss="modal"
+                                    aria-hidden="true">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="btn btn-secondary btn-lg float-right" id="btnLogin">
+                                    Login
+                                </button>
                             </div>
                         </form>
                         <div class="form-group">
                             <label class="label">Doesn't have you account?</label>
-                            <button class="btn btn-outline btn-lg btn-secondary" id="signUp" data-dismiss="modal" aria-hidden="true" href="SignUp.html">Sign Up in Debt Register!</button>
+                            <button class="btn btn-outline btn-lg btn-secondary" id="signUp" data-dismiss="modal"
+                                aria-hidden="true" href="SignUp.html">
+                                Sign Up in Debt Register!
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-      <div class="thumbnail col-md-offset-3 col-md-6">
-        <div id="form">
-          <div class="form-group">
-            <label class="control-label">REGISTER</label>
-          </div>
-          <div class="form-group">
-            username
-            <label class="control-label">username</label>
-            <input class="form-control" id="" type="text" />
-          </div>
-          <div class="form-group">
-            <label class="control-label">email</label>
-            <input class="form-control" id="email" type="text" />
-          </div>
-          <div class="form-group">
-            <label class="control-label">password</label>
-            <input class="form-control" id="password" type="text" />
-          </div>
-          <div class="form-group">
-            <label class="control-label">fullname</label>
-            <input class="form-control" id="fullname" type="text" />
-          </div>
-          <div class="form-group\">
-            <button id="inp">32132</button>
-          </div>
+        <div class="offset-4 col-md-4" id="SignUpModalContainer">
+            <h4 class="text-center">Sign up!</h4>
+            <form class="form" role="form" autocomplete="off" id="formSignUp" novalidate="" method="POST">
+                <div>
+                    <div class="form-group">
+                        <label class="cotnrol-label">Account informations</label>
+                    </div>
+                    <div class="form-group">
+                        <input id="username" class="form-control" placeholder="Username" />
+                    </div>
+                    <div class="form-group">
+                        <input id="email" class="form-control" placeholder="E-mail" />
+                    </div>
+                    <div class="form-group">
+                        <input id="password" class="form-control" placeholder="Password" type="password" />
+                    </div>
+                    <div class="form-group">
+                        <input id="confirmPassword" class="form-control" placeholder="confirm password" type="password" />
+                    </div>
+                </div>
+                <div>
+                        <div class="form-group">
+                            <label class="control-label">Personal informations</label>
+                        </div>
+                        <div class="form-group">
+                            <input id="fullname" class="form-control" placeholder="Fullname" />
+                        </div>
+                        <div class="form-group">
+                            <input id="telephoneNumber" class="form-control" placeholder="Telephone number" />
+                        </div>
+                        <div class="form-group">
+                            <select id="genderSelect" class="form-control">
+                                <option value="" disabled selected>Gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                </div>
+                <div >
+                        <button id="signUpButton" class="offset-3 btn btn-outline btn-lg btn-secondary">
+                            Sign Up in Debt Register!
+                        </button>
+                        <label class="center-block row offset-3"> Have already account?   <a data-toggle="modal"  href="#loginModal">  Sign in</a></label>
+                </div>
+            </form>
         </div>
-      </div>
     </div>
     <footer></footer>
-    <script src="js/scripts.js"></script>
-  </body>
+    <script src="js/SignUpAndIn.js"></script>
+</body>
+
 </html>

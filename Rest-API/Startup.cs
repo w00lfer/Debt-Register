@@ -22,7 +22,7 @@ namespace Rest_API
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"), x => x.MigrationsAssembly("WebApplication")));
             services.AddDefaultIdentity<User>()
                 .AddEntityFrameworkStores<AppDbContext>();
             services.Configure<IdentityOptions>(options =>
