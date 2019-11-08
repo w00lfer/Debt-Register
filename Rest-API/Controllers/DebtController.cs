@@ -41,14 +41,17 @@ namespace Rest_API.Controllers
 
         [HttpPost]
         [Route("AddDebt")]
-        public async Task AddDebtAsync(Debt debt) => await _debtRepository.AddDebtAsync((debt));
+        public async Task AddDebtAsync(Debt debt) => 
+            await _debtRepository.AddDebtAsync((debt));
 
         [HttpPut]
         [Route("{debtId}")]
-        public async Task EditDebtAsync(Debt debt) => await _debtRepository.EditDebtAsync(debt);
+        public async Task EditDebtAsync(Debt debt) => 
+            await _debtRepository.EditDebtAsync(debt);
 
         [HttpDelete]
         [Route("{debtId}")]
-        public async Task DeleteDebtAsync(Debt debt) => await _debtRepository.AddDebtAsync(debt);
+        public async Task DeleteDebtAsync(Debt debt) =>
+            await _debtRepository.AddDebtAsync(debt);
     }
 }
