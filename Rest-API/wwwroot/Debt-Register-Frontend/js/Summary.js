@@ -1,5 +1,6 @@
 const apiURL = "https://localhost:44379/api"
 
+/// AJAX TO GET LAST DEBTS FROM API
 $(document).ready(function(){
     $.ajax({
         type: 'GET',

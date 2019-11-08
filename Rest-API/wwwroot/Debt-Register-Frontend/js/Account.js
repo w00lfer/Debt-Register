@@ -16,7 +16,6 @@ $('#signUpButton').click(function(e) {
         data: JSON.stringify(myData),
         contentType: 'application/json',
         success: function(data) {
-            alert(data);
         }
     });
     return false;
