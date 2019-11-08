@@ -1,3 +1,5 @@
+using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Rest_API.Models;
+using Rest_API.Repositories;
+using Rest_API.Repositories.Interfaces;
 
 namespace Rest_API
 {
@@ -21,8 +25,8 @@ namespace Rest_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"), x => x.MigrationsAssembly("WebApplication")));
+
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"))); 
             services.AddDefaultIdentity<User>()
                 .AddEntityFrameworkStores<AppDbContext>();
             services.Configure<IdentityOptions>(options =>
@@ -33,6 +37,20 @@ namespace Rest_API
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 4;
             });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.Cookie.Name = "DebtRegisterCookie";
+                    options.Cookie.HttpOnly = true;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                    options.LoginPath = "/User/Login";
+                });
+            services.AddScoped<IDebtRepository, DebtRepository>();
+            services.ConfigureApplicationCookie((options =>
+            {
+                // refirect to /login
+                options.LoginPath = "/login";
+            }));
             services.AddControllers();
         }
 
@@ -45,9 +63,8 @@ namespace Rest_API
             }
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.Use(async (context, next) =>
             {

@@ -4,17 +4,9 @@
 body {
     height: 100vh;
 }
-.my-container {
-    height: 92%;
-    padding: 0 !important;
+/* TEMPLATE */
+nav.top-navigation-bar{
     position: relative;
-}
-
-.ml-md-auto .nav-item{
-    margin-right: 25px;
-}
-nav
-{
     height:5% !important;
     background: -webkit-linear-gradient(23deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
     background: -o-linear-gradient(23deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
@@ -27,11 +19,73 @@ nav a{
     text-decoration: none;
     color: inherit;
 }
-nav a:hover{
+nav ul a:hover{
     color: black;
-    font-weight: 400;
+    font-weight: bold;
     text-decoration: none;
-    font-size: 20px;
+}
+.navbar-brand:hover{
+    text-decoration: none !important;
+}
+.nav-sign a:last-child{
+}   
+.nav-sign a{
+}
+.nav-sign{
+    position: relative;
+    display: inline-block;
+}
+.my-container {
+    position: relative;
+    height: 92%;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.my-container-content{
+    height: 90%;
+    position:relative;
+    padding: 0 !important;
+    margin-left: 0% !important;
+    margin-right: 0% !important;
+    
+}
+.left-navigation-bar{
+    position: relative;
+    margin-top: 5%;
+    padding-left: 16px !important;
+    float: left;
+}
+.left-navigation-bar ul{
+    padding-left: 0% !important;
+}
+.left-navigation-bar li{
+    list-style-type: none;
+    padding-bottom: 50%;
+}
+.left-navigation-bar li a{
+    text-decoration: none;
+    color: black;
+    border-bottom:1px solid black;
+}.left-navigation-bar li a:hover{
+    color:black;
+    font-weight: bold;
+}
+footer{
+    position: relative;
+    background: -webkit-linear-gradient(23deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
+    background: -o-linear-gradient(23deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
+    background: -ms-linear-gradient(23deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
+    background: -moz-linear-gradient(23deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
+    background: linear-gradient(67deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
+    height: 3% !important;
+}
+/* TEMPLATE */
+
+/* LANDING PAGE */
+.landing-my-container {
+    height: 92%;
+    padding: 0 !important;
+    position: relative;
 }
 .theme::before
 {
@@ -51,7 +105,7 @@ nav a:hover{
     z-index: 1;
     position: relative;
     height: 55% !important;
-    background-image: url(/css/images/finance.jpg);
+    background-image: url(/css/images/financeComp.jpg);
     background-repeat: no-repeat;
     background-size: cover; 
 }
@@ -102,21 +156,42 @@ nav a:hover{
     display: block;
     text-align: center;
 }
+/* LANDING PAGE */
 
-footer
-{
-    background: -webkit-linear-gradient(23deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
-    background: -o-linear-gradient(23deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
-    background: -ms-linear-gradient(23deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
-    background: -moz-linear-gradient(23deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
-    background: linear-gradient(67deg, rgb(182, 178, 177) 0%, rgb(211, 211, 213) 97%, rgb(216, 216, 218) 100%);
-    height: 3%;
-}
+/* SUMMARY */
 
-#SignUpModalContainer{
-    top: 10%;
-    background-color: gainsboro
+.statistics-block{
+    position: relative;
 }
-#signUpButton
-{
+.statistics-block-content{
+    position: relative;
+    top:50%;
+    height:50%;
+    font-size: 12px;
 }
+.statistics-block-content h3{
+    padding-top: 15px;
+}
+.statistics-block-content label{
+    height: 10%;
+    display: block;
+}
+.last-debts-block{
+    position: relative;
+    padding-right: 6% !important;
+    padding-left: 3% !important
+}
+.last-debts-block > div{
+    position: relative;
+    height:50%;
+}
+.last-debts-block  h4{
+    height: 15%;
+    padding-top: 15px;
+    margin: 0%;
+}
+.last-debts-block > div > div{
+    position: relative;
+    height:85%;
+}
+/* SUMMARY */

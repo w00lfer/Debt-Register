@@ -7,7 +7,7 @@ namespace Rest_API.Repositories.Interfaces
     public interface IUserRepository
     {
         Task<IEnumerable<User>> GetAllUsers();
-        Task<UserModel> GetUserById(string userId);
-         Task CreateUser(UserModel userModel);
+        Task<SignUpUser> GetUserById(int userId);
+        Task CreateUser(SignUpUser signUpUser);
     }
 }

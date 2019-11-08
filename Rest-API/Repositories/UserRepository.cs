@@ -17,21 +17,21 @@ namespace Rest_API.Repositories
             _signInManager = signInManager;
         }
 
-        public async Task CreateUser(UserModel userModel)
+        public async Task CreateUser(SignUpUser signUpUser)
         {
             var user = new User()
             {
-                UserName = userModel.UserName,
-                Email = userModel.Email,
-                FullName = userModel.FullName
+                UserName = signUpUser.UserName,
+                Email = signUpUser.Email,
+                FullName = signUpUser.FullName
             };
-            await _userManager.CreateAsync(user, userModel.Password);
+            await _userManager.CreateAsync(user, signUpUser.Password);
         }
         public async Task<IEnumerable<User>> GetAllUsers() => await _userManager.Users.ToListAsync();
-        public async Task<UserModel> GetUserById(string userId)
+        public async Task<SignUpUser> GetUserById(int userId)
         {
             var userEntity = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
-            var user = new UserModel
+            var user = new SignUpUser
             {
                 UserName = userEntity.UserName,
                 Email = userEntity.Email,

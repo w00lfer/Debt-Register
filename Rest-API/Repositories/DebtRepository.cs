@@ -12,26 +12,37 @@ namespace Rest_API.Repositories
         private AppDbContext _appDbContext;
         public DebtRepository(AppDbContext appDbContext) => _appDbContext = appDbContext;
 
-        public async Task<IQueryable<Debt>> GetAllBorrowedDebts(int borrowerId) // => await _appDbContext.Debts.Where(x => x.BorrowerId == borrowerId).ToListAsync();
-        {
-            throw new System.NotImplementedException();
-        }
-        public async Task<IQueryable<Debt>> GetAllLentDebts(int lenderId)
-        {
-            throw new System.NotImplementedException();
-        }
-        public async Task<Debt> GetDebtById(int debtId) => await _appDbContext.Debts.FirstOrDefaultAsync(x => x.DebtId == debtId);
-        public async Task AddDebt(Debt debt)
+        public IQueryable<Debt> GetAllDebts() => _appDbContext.Debts.AsQueryable();
+
+        public async Task<IEnumerable<Debt>> GetAllBorrowedDebtsAsync(int borrowerId) =>
+            await _appDbContext.Debts.Where(b => b.BorrowerId == borrowerId).ToListAsync();
+
+        public async Task<IEnumerable<Debt>> GetLastBorrowedDebtsAsync(int borrowerId) =>
+            await GetAllDebts().Where(b => b.BorrowerId == borrowerId)
+                .OrderByDescending(d => d.DebtStartDate).Take(5).ToListAsync();
+
+        public async Task<IEnumerable<Debt>> GetAllLentDebtsAsync(int lenderId) =>
+            await GetAllDebts().Where(l => l.LenderId == lenderId).ToListAsync();
+
+        public async Task<IEnumerable<Debt>> GetLastLentDebtsAsync(int lenderId) =>
+            await GetAllDebts().Where(l => l.LenderId == lenderId)
+                .OrderByDescending(d => d.DebtStartDate).Take(5).ToListAsync();
+        public async Task<Debt> GetDebtByIdAsync(int debtId) =>
+            await _appDbContext.Debts.FirstOrDefaultAsync(x => x.Id == debtId);
+
+        public async Task AddDebtAsync(Debt debt)
         {
             await _appDbContext.Debts.AddAsync(debt);
             await _appDbContext.SaveChangesAsync();
         }
-        public async Task DeleteDebt(Debt debt)
+
+        public async Task DeleteDebtAsync(Debt debt)
         {
             _appDbContext.Remove(debt);
             await _appDbContext.SaveChangesAsync();
         }
-        public async Task EditDebt(Debt debt)
+
+        public async Task EditDebtAsync(Debt debt)
         {
             _appDbContext.Update(debt);
             await _appDbContext.SaveChangesAsync();

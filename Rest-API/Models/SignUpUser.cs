@@ -1,6 +1,6 @@
 ﻿namespace Rest_API.Models
 {
-    public class UserModel
+    public class SignUpUser
     {
         public string UserName { get; set; }
         public string Email { get; set; }

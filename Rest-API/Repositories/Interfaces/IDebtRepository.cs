@@ -7,12 +7,15 @@ namespace Rest_API.Repositories.Interfaces
 {
     public interface IDebtRepository
     {
-        Task<IQueryable<Debt>> GetAllLentDebts(int lenderId);
-        Task<IQueryable<Debt>> GetAllBorrowedDebts(int borrowerId);
-        Task<Debt> GetDebtById(int debtId);
-        Task AddDebt(Debt debt);
-        Task EditDebt(Debt debt);
-        Task DeleteDebt(Debt debt);    
+        IQueryable<Debt> GetAllDebts();
+        Task<IEnumerable<Debt>> GetAllBorrowedDebtsAsync(int borrowerId);
+        Task<IEnumerable<Debt>> GetLastBorrowedDebtsAsync(int borrowerId);
+        Task<IEnumerable<Debt>> GetAllLentDebtsAsync(int lenderId);
+        Task<IEnumerable<Debt>> GetLastLentDebtsAsync(int lenderId);
+        Task<Debt> GetDebtByIdAsync(int debtId);
+        Task AddDebtAsync(Debt debt);
+        Task EditDebtAsync(Debt debt);
+        Task DeleteDebtAsync(Debt debt);    
         
     }
 }

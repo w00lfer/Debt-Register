@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Rest_API.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace Rest_API.Controllers
 {
@@ -22,17 +22,18 @@ namespace Rest_API.Controllers
         [HttpPost]
         [Route("Register")]
         //POST : /api/User/Register
-        public async Task<Object> PostUser(UserModel userModel)
+        public async Task<Object> PostUserAsync(SignUpUser signUpUser)
         {
             var user = new User() {
-                UserName = userModel.UserName,
-                Email = userModel.Email,
-                FullName = userModel.FullName
+                UserName = signUpUser.UserName,
+                Email = signUpUser.Email,
+                FullName = signUpUser.FullName
             };
                 
             try
             {
-                var result = await _userManager.CreateAsync(user, userModel.Password);
+                var result = await _userManager.CreateAsync(user, signUpUser.Password);
+                if (result.Succeeded) await _signInManager.SignInAsync(user, false);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -40,6 +41,22 @@ namespace Rest_API.Controllers
                 Console.WriteLine(ex);
                 throw;
             }
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        //Post : /api/User/Login
+        public async Task<Object> LoginAsync(SignInUser signInUser)
+        {
+            var result = await _signInManager.PasswordSignInAsync(signInUser.UserName, signInUser.Password, false, true); 
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("Logout")]
+        public async Task<Object> LogoutAsync(SignInUser signInUser)
+        {
+            throw new NotImplementedException();
         }
     }
 }

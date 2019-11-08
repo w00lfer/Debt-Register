@@ -30,8 +30,28 @@ $("#btnLogin").click(function(event) {
     }
     else
     {
-        event.preventDefault();
-        window.location.href = "Summary.html";
+        console.log("lol");
+        event.preventDefault()
+        var myData = {
+            Username: $('#loginUsername').val(),
+            Password: $('#loginPassword').val(),
+        };
+        $.ajax({
+            type: 'POST',
+            url: 'https://localhost:44379/api/User/Login',
+            dataType: 'json',
+            data: JSON.stringify(myData),
+            contentType: 'application/json',
+            success: function(data) {
+                     alert("signed in");
+                     window.location.href = "Summary.html";   
+            },
+            error: function(){
+               alert("you gave wrong credentials"); 
+            }
+            
+        });
+        
     }
 });
 
