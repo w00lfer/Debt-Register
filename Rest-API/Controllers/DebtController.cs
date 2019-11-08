@@ -2,6 +2,7 @@
 using Rest_API.Models;
 using Rest_API.Repositories.Interfaces;
 using System;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace Rest_API.Controllers
@@ -15,7 +16,8 @@ namespace Rest_API.Controllers
 
         [HttpGet]
         [Route("{userId}/Borrowed")]
-        public async Task<Object> GetAllBorrowedDebtsForUserAsync(int userId) => await _debtRepository.GetAllBorrowedDebtsAsync(userId);
+        public async Task<Object> GetAllBorrowedDebtsForUserAsync(int userId) =>
+            await _debtRepository.GetAllBorrowedDebtsAsync(userId);
 
         [HttpGet]
         [Route("{userId}/LastBorrowed")]
@@ -24,31 +26,29 @@ namespace Rest_API.Controllers
 
         [HttpGet]
         [Route("{userId}/Lent")]
-        public async Task<Object> GetAllLentDebtsForUserAsync(int userId)
-        {
-            return Ok();
-        }
+        public async Task<Object> GetAllLentDebtsForUserAsync(int userId) =>
+            await _debtRepository.GetAllLentDebtsAsync(userId);
 
         [HttpGet]
         [Route("{userId}/LastLent")]
-        public async Task<Object> GetLastLentDebtsForUserAsync(int userId)
-        {
-            return Ok();
-        }
+        public async Task<Object> GetLastLentDebtsForUserAsync(int userId) =>
+            await _debtRepository.GetLastLentDebtsAsync(userId);
 
         [HttpGet]
         [Route("{debtId}")]
-        public async Task<Object> GetDebtForUserAsync(int debtId)
-        {
-            return Ok();
-        }
+        public async Task<Object> GetDebtForUserAsync(int debtId) =>
+            await _debtRepository.GetDebtByIdAsync(debtId);
 
         [HttpPost]
         [Route("AddDebt")]
-        public async Task<Object> AddDebt(Debt debt)
-        {
-            await _debtRepository.AddDebtAsync((debt));
-            return Ok();
-        }
+        public async Task AddDebtAsync(Debt debt) => await _debtRepository.AddDebtAsync((debt));
+
+        [HttpPut]
+        [Route("{debtId}")]
+        public async Task EditDebtAsync(Debt debt) => await _debtRepository.EditDebtAsync(debt);
+
+        [HttpDelete]
+        [Route("{debtId}")]
+        public async Task DeleteDebtAsync(Debt debt) => await _debtRepository.AddDebtAsync(debt);
     }
 }
