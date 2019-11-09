@@ -9,6 +9,9 @@ $(document).ready(function(){
         contentType: 'application/json',
         success: function(data) {
             populateLastDebtsTable( document.getElementById("lastBorrowedDebtsTableBody"), data)
+        },
+        error:  function(){
+            alert("Failed to load resources to last debts tables, check your internet connection!");
         }
     });
     $.ajax({
@@ -18,6 +21,9 @@ $(document).ready(function(){
         contentType: 'application/json',
         success: function(data) {
             populateLastDebtsTable( document.getElementById("lastLentDebtsTableBody"), data)
+        },
+        error:  function(){
+            alert("Failed to load resources to last debts tables, check your internet connection!");
         }
     });
     

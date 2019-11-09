@@ -38,6 +38,12 @@ nav ul a:hover{
     margin: 0 !important;
     background-color:  gainsboro;
 }
+.my-container__top{
+ height: 15%
+}
+.my-container__bottom{
+ height: 85%
+}
 .my-container-content{
     height: 90%;
     position:relative;
@@ -48,7 +54,6 @@ nav ul a:hover{
 }
 .left-navigation-bar{
     position: relative;
-    margin-top: 5%;
     padding-left: 16px !important;
     float: left;
 }
@@ -72,6 +77,7 @@ footer{
     background-color: #333;
     height: 3% !important;
 }
+
 /* TEMPLATE */
 
 /* LANDING PAGE */
