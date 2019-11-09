@@ -45,7 +45,6 @@ namespace Rest_API
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                     options.LoginPath = "/User/Login";
                 });
-
             services.AddScoped<IDebtRepository, DebtRepository>();
             services.ConfigureApplicationCookie((options =>
             {
