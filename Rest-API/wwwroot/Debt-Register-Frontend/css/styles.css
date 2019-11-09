@@ -4,6 +4,7 @@
 body {
     height: 100vh;
 }
+
 /* TEMPLATE */
 nav.top-navigation-bar{
     color: white;
@@ -23,10 +24,6 @@ nav ul a:hover{
 .navbar-brand:hover{
     text-decoration: none !important;
 }
-.nav-sign a:last-child{
-}   
-.nav-sign a{
-}
 .nav-sign{
     position: relative;
     display: inline-block;
@@ -39,10 +36,24 @@ nav ul a:hover{
     background-color:  gainsboro;
 }
 .my-container__top{
- height: 15%
+    position: relative;
+    height: 10%;
+}
+.last-and-to-person{
+    top:30%;
+}
+.last-and-to-person a{
+    padding-right: 2%;
+    color:black;
+    text-decoration: none;
+}
+.last-and-to-person a:hover{
+    color: black; 
+    font-weight:bold;  
+    text-decoration: none;
 }
 .my-container__bottom{
- height: 85%
+    height: 90%;
 }
 .my-container-content{
     height: 90%;
@@ -158,23 +169,6 @@ footer{
 /* LANDING PAGE */
 
 /* SUMMARY */
-
-.statistics-block{
-    position: relative;
-}
-.statistics-block-content{
-    position: relative;
-    top:50%;
-    height:50%;
-    font-size: 12px;
-}
-.statistics-block-content h3{
-    padding-top: 15px;
-}
-.statistics-block-content label{
-    height: 10%;
-    display: block;
-}
 .last-debts-block{
     position: relative;
     padding-right: 6% !important;
@@ -194,3 +188,14 @@ footer{
     height:85%;
 }
 /* SUMMARY */
+
+/* Borrowed and Lent*/
+.highlighted{
+    font-weight: bolder;
+}
+#borrowedDebtsContainer{
+    position: relative;
+    height:85%;
+}
+#borrowedDebtsContainer table{
+}
