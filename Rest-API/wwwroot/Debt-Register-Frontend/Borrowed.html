@@ -27,9 +27,9 @@
     <div class="container-fluid my-container">
       <div class="container-fluid my-container__top">
             <div class="offset-3 col-md-4 row last-and-to-person">
-                    <a href="#" onclick="showLastDebts(this)">Last debts</a>
+                    <a id="showLastDebts" href="#" onclick="showLastDebts()">Last debts</a>
                     <a>/</a>
-                    <a href="#" onclick="showDebtsToPerson(this)">Debts to a contact</a>
+                    <a id="showDebtsToPerson" href="#" onclick="showDebtsToPerson()">Debts to a contact</a>
                   </div>
       </div>
       <div class="row container-fluid my-container_bottom">
@@ -54,6 +54,24 @@
                         </tr>
                     </thead>
                     <tbody id="borrowedDebtsTableBody">
+                        <tr>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="borrowedDebtsToPersonContainer" class=" offset-2 col-md-8 table-responsive" style="display:none">
+                <table class="table table-light" >
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Payed</th>
+                            <th scope="col">Borrower</th>
+                        </tr>
+                    </thead>
+                    <tbody id="borrowedDebtsToPerson">
                         <tr>
                             
                         </tr>

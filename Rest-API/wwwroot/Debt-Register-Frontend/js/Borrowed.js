@@ -1,6 +1,24 @@
 const apiURL = "https://localhost:44379/api"
-
+showLastDebts()
 $(document).ready(function(){
+    $.ajax({
+        type: 'GET',
+        url: `${apiURL}/Debt/1/Borrowed`,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function(data) {
+            showLastDebts();
+        },
+        error:  function(){
+            alert("Failed to load resources to last debts tables, check your internet connection!");
+        }
+    });
+});
+//-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ON PAGE LOAD TO POPULATE DEFAULT TABLE
+function showLastDebts()
+{
+    $(".last-and-to-person .highlighted").removeClass("highlighted");
+    $('#showLastDebts').addClass("highlighted");
     $.ajax({
         type: 'GET',
         url: `${apiURL}/Debt/1/Borrowed`,
@@ -13,7 +31,24 @@ $(document).ready(function(){
             alert("Failed to load resources to last debts tables, check your internet connection!");
         }
     });
-});
+}
+function showDebtsToPerson()
+{
+    $(".last-and-to-person .highlighted").removeClass("highlighted");
+    $('#showDebtsToPerson').addClass("highlighted");
+    $.ajax({
+        type: 'GET',
+        url: `${apiURL}/Debt/1/Borrowed`,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function(data) {
+            //populateLastDebtsTable( document.getElementById("borrowedDebtsTableBody"), data)
+        },
+        error:  function(){
+            alert("Failed to load resources to last debts tables, check your internet connection!");
+        }
+    });
+}
 
 function populateLastDebtsTable(tableBody, data){
     let myData = data;
@@ -32,3 +67,5 @@ function populateLastDebtsTable(tableBody, data){
         borrowerCell.innerHTML = data[row].borrowerId;
     }
 }
+
+

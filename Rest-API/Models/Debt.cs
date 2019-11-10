@@ -13,9 +13,9 @@ namespace Rest_API.Models
         public DateTime DebtStartDate { get; set; }
         public DateTime? DebtPaymentDate { get; set; }
         public int? LenderId { get; set; }
-        public string? LenderFullName { get; set; }
+        public int? LocalLenderId { get; set; }
         public int? BorrowerId { get; set; }
-        public string? BorrowerFullName { get; set; }
+        public int? LocalBorrowerId { get; set; }
         public bool IsPayed { get; set; }
     }
 }
