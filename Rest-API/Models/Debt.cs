@@ -12,10 +12,12 @@ namespace Rest_API.Models
         public string Description { get; set; }
         public DateTime DebtStartDate { get; set; }
         public DateTime? DebtPaymentDate { get; set; }
-        public int? LenderId { get; set; }
-        public int? LocalLenderId { get; set; }
-        public int? BorrowerId { get; set; }
-        public int? LocalBorrowerId { get; set; }
+        public int LenderId { get; set; }
+        public bool IsLenderLocal { get; set; }
+        //public int? LocalLenderId { get; set; }
+        public int BorrowerId { get; set; }
+        public bool IsBorrowerLocal { get; set; }
+        //public int? LocalBorrowerId { get; set; }
         public bool IsPayed { get; set; }
     }
 }

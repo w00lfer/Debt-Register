@@ -14,23 +14,30 @@ namespace Rest_API.Repositories
 
         public IQueryable<Debt> GetAllDebts() => _appDbContext.Debts.AsQueryable();
 
-        public async Task<IEnumerable<Debt>> GetAllBorrowedDebtsAsync(int borrowerId) =>
-            await _appDbContext.Debts.Where(b => b.BorrowerId == borrowerId).ToListAsync();
+        public async Task<IEnumerable<Debt>> GetAllBorrowedDebtsAsync(int userId) =>
+            await _appDbContext.Debts.Where(b => b.BorrowerId == userId).ToListAsync();
 
-        public async Task<IEnumerable<Debt>> GetLastBorrowedDebtsAsync(int borrowerId) =>
-            await GetAllDebts().Where(b => b.BorrowerId == borrowerId)
-                .OrderByDescending(d => d.DebtStartDate).Take(5).ToListAsync();
+        public async Task<IEnumerable<Debt>> GetLastBorrowedDebtsAsync(int userId) =>
+            await GetAllDebts().Where(b => b.BorrowerId == userId).OrderByDescending(d => d.DebtStartDate).Take(5).ToListAsync();
 
-        public async Task<IEnumerable<Debt>> GetAllLentDebtsAsync(int lenderId) =>
-            await GetAllDebts().Where(l => l.LenderId == lenderId).ToListAsync();
+        // Gets borrowed debts from person depending on if its local contact or application user
+        public async Task<IEnumerable<Debt>> GetAllBorrowedDebtsFromLenderAsync(int userId, bool isLocal, int lenderId) =>
+            await GetAllDebts().Where(b => b.BorrowerId == userId && b.IsLenderLocal == isLocal && b.LenderId == lenderId).ToListAsync();
 
-        public async Task<IEnumerable<Debt>> GetLastLentDebtsAsync(int lenderId) =>
-            await GetAllDebts().Where(l => l.LenderId == lenderId)
-                .OrderByDescending(d => d.DebtStartDate).Take(5).ToListAsync();
+        public async Task<IEnumerable<Debt>> GetAllLentDebtsAsync(int userId) =>
+            await GetAllDebts().Where(l => l.LenderId == userId).ToListAsync();
+
+        public async Task<IEnumerable<Debt>> GetLastLentDebtsAsync(int userId) =>
+            await GetAllDebts().Where(l => l.LenderId == userId).OrderByDescending(d => d.DebtStartDate).Take(5).ToListAsync();
+
+        // Gets lent debts to person depending on if its local contact or application user
+        public async Task<IEnumerable<Debt>> GetAllLentDebtsToBorrowerAsync(int userId, bool isLocal, int borrowerId) =>
+             await GetAllDebts().Where(b => b.LenderId == userId && b.IsBorrowerLocal == isLocal && b.BorrowerId == borrowerId).ToListAsync();
+
         public async Task<Debt> GetDebtByIdAsync(int debtId) =>
             await _appDbContext.Debts.FirstOrDefaultAsync(x => x.Id == debtId);
 
-        public async Task AddDebtAsync(Debt debt)
+        public async Task CreateDebtAsync(Debt debt)
         {
             await _appDbContext.Debts.AddAsync(debt);
             await _appDbContext.SaveChangesAsync();

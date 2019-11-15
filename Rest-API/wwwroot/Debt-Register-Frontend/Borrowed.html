@@ -26,11 +26,22 @@
     </nav>
     <div class="container-fluid my-container">
       <div class="container-fluid my-container__top">
-            <div class="offset-3 col-md-4 row last-and-to-person">
-                    <a id="showLastDebts" href="#" onclick="showLastDebts()">Last debts</a>
-                    <a>/</a>
-                    <a id="showDebtsToPerson" href="#" onclick="showDebtsToPerson()">Debts to a contact</a>
-                  </div>
+        <div class="offset-3 col-md-4 row last-and-to-person">
+            <a id="showLastDebts" href="#" onclick="showLastDebts()">Last debts</a>
+            <a>/</a>
+            <a id="showDebtsToPerson" href="#" onclick="showDebtsToPersonTable()">Debts to a contact</a>
+        </div>
+        <div id="contactFinder" class="offset-3 col-md-4 row last-and-to-person" style="display:none">
+          <select id="contactType" class="">  
+            <option value="-1" disabled selected>Contact type</option>
+            <option value="1">User</option>
+            <option value="2">Local contact</option>
+          </select>
+          <select id="contactSelect"></select>
+          <input id="contactInput" class="input-sm" placeholder="Insert user id">
+          <button onclick="showDebtsToPerson()" class="btn btn-dark">search</button>
+          </div>
+
       </div>
       <div class="row container-fluid my-container_bottom">
         <div class="col-md-1 left-navigation-bar">
@@ -43,7 +54,7 @@
         </div>
         <div class="col-md-11 container-fluid my-container-content row">
             <div id="borrowedDebtsContainer" class=" offset-2 col-md-8 table-responsive">
-                <table class="table table-light" >
+                <table id="borrowedDebtsTable" class="table table-light" style="display:none">
                     <thead>
                         <tr>
                             <th scope="col">Date</th>
@@ -60,18 +71,17 @@
                     </tbody>
                 </table>
             </div>
-            <div id="borrowedDebtsToPersonContainer" class=" offset-2 col-md-8 table-responsive" style="display:none">
-                <table class="table table-light" >
+            <div id="borrowedDebtsToPersonContainer" class=" offset-2 col-md-8 table-responsive">
+                <table id="borrowedDebtsToPersonTable" class="table table-light" style="display:none">
                     <thead>
                         <tr>
                             <th scope="col">Date</th>
                             <th scope="col">Value</th>
                             <th scope="col">Description</th>
                             <th scope="col">Payed</th>
-                            <th scope="col">Borrower</th>
                         </tr>
                     </thead>
-                    <tbody id="borrowedDebtsToPerson">
+                    <tbody id="borrowedDebtsToPersonTableBody">
                         <tr>
                             
                         </tr>

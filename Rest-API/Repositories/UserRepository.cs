@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Rest_API.Models;
+using Rest_API.Models.DTOs;
 using Rest_API.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,18 +18,8 @@ namespace Rest_API.Repositories
             _signInManager = signInManager;
         }
 
-        public async Task CreateUser(SignUpUser signUpUser)
-        {
-            var user = new User()
-            {
-                UserName = signUpUser.UserName,
-                Email = signUpUser.Email,
-                FullName = signUpUser.FullName
-            };
-            await _userManager.CreateAsync(user, signUpUser.Password);
-        }
-        public async Task<IEnumerable<User>> GetAllUsers() => await _userManager.Users.ToListAsync();
-        public async Task<SignUpUser> GetUserById(int userId)
+        public async Task<IEnumerable<User>> GetAllUsersAsync() => await _userManager.Users.ToListAsync();
+        public async Task<SignUpUser> GetUserByIdAsync(int userId)
         {
             var userEntity = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
             var user = new SignUpUser
@@ -39,5 +30,6 @@ namespace Rest_API.Repositories
             };
             return user;
         }
+        public async Task<IdentityResult> CreateUserAsync(User user, string password) => await _userManager.CreateAsync(user, password);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Rest_API.Models;
+using Rest_API.Models.DTOs;
+using Rest_API.Repositories.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -8,15 +10,17 @@ namespace Rest_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
+        private IUserRepository _userRepository;
 
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IUserRepository userRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _userRepository = userRepository;
         }
 
         [HttpPost]
@@ -24,7 +28,24 @@ namespace Rest_API.Controllers
         //POST : /api/User/Register
         public async Task<Object> PostUserAsync(SignUpUser signUpUser)
         {
-            var user = new User() {
+            try
+            {
+                var user = new User()
+                {
+                    UserName = signUpUser.UserName,
+                    Email = signUpUser.Email,
+                    FullName = signUpUser.FullName
+                };
+                var result = await _userRepository.CreateUserAsync(user, signUpUser.Password);
+                if (result.Succeeded) await _signInManager.SignInAsync(user, false);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                throw;
+            }
+          /*  var user = new User() {
                 UserName = signUpUser.UserName,
                 Email = signUpUser.Email,
                 FullName = signUpUser.FullName
@@ -40,7 +61,7 @@ namespace Rest_API.Controllers
             {
                 Console.WriteLine(ex);
                 throw;
-            }
+            } */
         }
 
         [HttpPost]

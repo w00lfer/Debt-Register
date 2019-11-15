@@ -11,17 +11,20 @@ $('#signUpButton').click(function(e) {
     };
     $.ajax({
         type: 'POST',
-        url: 'https://localhost:44379/api/User/Register',
+        url: 'https://localhost:44379/api/Account/Register',
         dataType: 'json',
         data: JSON.stringify(myData),
         contentType: 'application/json',
         success: function(data) {
+        },
+        error: function() {
+            alert("123")
         }
     });
     return false;
 });
 
-/// log in function
+/// sign in function
 $("#btnLogin").click(function(event) {
     if ($("#formLogin")[0].checkValidity() === false) {
     event.preventDefault()
@@ -37,7 +40,7 @@ $("#btnLogin").click(function(event) {
         };
         $.ajax({
             type: 'POST',
-            url: 'https://localhost:44379/api/User/Login',
+            url: 'https://localhost:44379/api/Account/Login',
             dataType: 'json',
             data: JSON.stringify(myData),
             contentType: 'application/json',
@@ -54,7 +57,9 @@ $("#btnLogin").click(function(event) {
     }
 });
 
-// sign up redirect from sign in modal
-$("#signUp").click(function(event) {
-    window.location.href = "SignUp.html";
- })
+//// sign up redirect from sign in modal
+//$("#signUp").click(function(event) {
+//    window.location.href = "SignUp.html";
+// })
+
+$("#signUp").click(() => window.location.href = 'SignUp.html');

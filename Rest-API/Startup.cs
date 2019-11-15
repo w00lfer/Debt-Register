@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Rest_API.Models;
+using Rest_API.Models.DTOs;
 using Rest_API.Repositories;
 using Rest_API.Repositories.Interfaces;
 
@@ -45,7 +47,10 @@ namespace Rest_API
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                     options.LoginPath = "/User/Login";
                 });
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IDebtRepository, DebtRepository>();
+            services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.ConfigureApplicationCookie((options =>
             {
                 // refirect to /login

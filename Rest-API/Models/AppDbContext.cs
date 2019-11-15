@@ -14,6 +14,6 @@ namespace Rest_API.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Debt> Debts { get; set; }
-        public DbSet<LocalUser> LocalUsers { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
     }
 }

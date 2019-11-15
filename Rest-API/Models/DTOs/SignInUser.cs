@@ -1,4 +1,4 @@
-﻿namespace Rest_API.Models
+﻿namespace Rest_API.Models.DTOs
 {
     public class SignInUser
     {

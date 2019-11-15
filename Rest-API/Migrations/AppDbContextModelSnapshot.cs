@@ -153,49 +153,7 @@ namespace Rest_API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Rest_API.Models.Debt", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BorrowerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DebtPaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DebtStartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsPayed")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("LenderId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LocalBorrowerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LocalLenderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Debts");
-                });
-
-            modelBuilder.Entity("Rest_API.Models.LocalUser", b =>
+            modelBuilder.Entity("Rest_API.Models.Contact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -216,7 +174,49 @@ namespace Rest_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LocalUsers");
+                    b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("Rest_API.Models.Debt", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BorrowerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DebtPaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DebtStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsBorrowerLocal")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsLenderLocal")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPayed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Debts");
                 });
 
             modelBuilder.Entity("Rest_API.Models.User", b =>
