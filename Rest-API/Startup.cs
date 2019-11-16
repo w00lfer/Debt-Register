@@ -53,7 +53,6 @@ namespace Rest_API
             services.AddScoped<IUserRepository, UserRepository>();
             services.ConfigureApplicationCookie((options =>
             {
-                // refirect to /login
                 options.LoginPath = "/login";
             }));
             services.AddControllers();

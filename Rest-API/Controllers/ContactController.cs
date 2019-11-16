@@ -2,7 +2,10 @@
 using Rest_API.Models;
 using Rest_API.Repositories.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using Rest_API.Models.DTOs;
 
 namespace Rest_API.Controllers
 {
@@ -11,11 +14,18 @@ namespace Rest_API.Controllers
     public class ContactController : ControllerBase
     {
         private readonly IContactRepository _contactRepository;
-        public ContactController(IContactRepository contactRepository) => _contactRepository = contactRepository;
+        private readonly IMapper _mapper;
+
+        public ContactController(IContactRepository contactRepository, IMapper mapper)
+        {
+            _contactRepository = contactRepository;
+            _mapper = mapper;
+        } 
 
         [HttpGet]
-        [Route("{userId}/Contact")]
-        public async Task<Object> GetAllContactsAsync(int userId) => await _contactRepository.GetAllContactsAsync(userId);
+        [Route("{userId}/ContactsFullNames")]
+        public async Task<Object> GetAllContactsNamesAsync(int userId) => 
+             _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(userId));
 
         [HttpGet]
         [Route("{contactId}")]

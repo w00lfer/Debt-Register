@@ -66,14 +66,6 @@ namespace Rest_API.Controllers
         {          
             var borrowedDebtsFromLender = await _debtRepository.GetAllBorrowedDebtsFromLenderAsync(userId, isLocal, lenderId);
             return _mapper.Map<List<DebtToOrFromForTable>>(borrowedDebtsFromLender);
-            //return borrowedDebtsFromLender.Select(debt => new DebtToOrFromForTable
-            //{
-            //    Id = debt.Id,
-            //    Name = debt.Name,
-            //    Value = debt.Value,
-            //    DebtStartDate = debt.DebtStartDate,
-            //    IsPayed = debt.IsPayed
-            //});
         }
 
         [HttpGet]
@@ -118,14 +110,6 @@ namespace Rest_API.Controllers
         {
             var lentDebtsToBorrower = await _debtRepository.GetAllLentDebtsToBorrowerAsync(userId, isLocal, borrowerId);
             return _mapper.Map<List<DebtToOrFromForTable>>(lentDebtsToBorrower);
-            //return lentDebtsToBorrower.Select(debt => new DebtToOrFromForTable
-            //{
-            //    Id = debt.Id,
-            //    Name = debt.Name,
-            //    Value = debt.Value,
-            //    DebtStartDate = debt.DebtStartDate,
-            //    IsPayed = debt.IsPayed
-            //});
         }
 
         [HttpGet]

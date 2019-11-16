@@ -171,17 +171,17 @@ footer{
 /* SUMMARY */
 .last-debts-block{
     position: relative;
-    padding-right: 6% !important;
-    padding-left: 3% !important
+    padding-right: 6%;
+    padding-left: 3%;
 }
 .last-debts-block > div{
     position: relative;
+    padding-bottom: 1rem;
     height:50%;
 }
 .last-debts-block  h4{
     height: 15%;
     padding-top: 15px;
-    margin: 0%;
 }
 .last-debts-block > div > div{
     position: relative;

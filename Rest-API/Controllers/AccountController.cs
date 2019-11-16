@@ -4,7 +4,9 @@ using Rest_API.Models;
 using Rest_API.Models.DTOs;
 using Rest_API.Repositories.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Rest_API.Controllers
 {
@@ -12,15 +14,17 @@ namespace Rest_API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private UserManager<User> _userManager;
-        private SignInManager<User> _signInManager;
-        private IUserRepository _userRepository;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly  IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IUserRepository userRepository)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IUserRepository userRepository, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -45,23 +49,6 @@ namespace Rest_API.Controllers
                 Console.Write(ex);
                 throw;
             }
-          /*  var user = new User() {
-                UserName = signUpUser.UserName,
-                Email = signUpUser.Email,
-                FullName = signUpUser.FullName
-            };
-                
-            try
-            {
-                var result = await _userManager.CreateAsync(user, signUpUser.Password);
-                if (result.Succeeded) await _signInManager.SignInAsync(user, false);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                throw;
-            } */
         }
 
         [HttpPost]
@@ -79,5 +66,10 @@ namespace Rest_API.Controllers
         {
             throw new NotImplementedException();
         }
+
+        [HttpGet]
+        [Route("UsersFullNames")]
+        public async Task<Object> GetAllUsersFullNamesAsync() =>
+            _mapper.Map<List<LenderOrBorrowerForTable>>(await _userRepository.GetAllUsersAsync());
     }
 }

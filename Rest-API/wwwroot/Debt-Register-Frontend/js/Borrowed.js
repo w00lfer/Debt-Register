@@ -1,9 +1,9 @@
 const apiURL = "https://localhost:44379/api"
 
+// ON PAGE LOAD TO POPULATE DEFAULT TABLE
 $(document).ready(function(){
-    showLastDebts();
+    showBorrowedDebts();
 });
-//-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ON PAGE LOAD TO POPULATE DEFAULT TABLE
 
 function highlightAndShowTable(category, tableBody)
 {
@@ -13,39 +13,91 @@ function highlightAndShowTable(category, tableBody)
     $("table[style='']").attr("style","display:none"); // hides table 
     $(tableBody).attr("style", ""); // shows desired table
 }
-function showLastDebts()
+
+function showBorrowedDebts()
 {
-    highlightAndShowTable($("#showLastDebts"), $("#borrowedDebtsTable"))
+    highlightAndShowTable($("#borrowedDebts"), $("#borrowedDebtsTable"))
     $("#contactFinder").attr("style", "display:none");
-  //  $(".last-and-to-person .highlighted").removeClass("highlighted");
-    //$('#showLastDebts').addClass("highlighted");
     $.ajax({
         type: 'GET',
         url: `${apiURL}/Debt/1/Borrowed`,
         dataType: 'json',
         contentType: 'application/json',
         success: function(data) {
-            populateLastDebtsTable(data)
+            populateBorrowedDebtsTable(data)
         },
         error:  function(){
             alert("Failed to load resources to last debts tables, check your internet connection!");
         }
     });
 }
-function showDebtsToPersonTable()
+
+$(document).ready(function() { 
+    $("#borrowedDebtsFromLender").click(function(){
+        highlightAndShowTable($("#borrowedDebtsFromLender"), $("#borrowedDebtsFromLenderTable"));
+        $("#contactFinder").attr("style", ""); 
+    });
+});
+
+$(document).ready(function() { 
+    $("#borrowedDebts").click(function(){
+        showBorrowedDebts();
+    });
+});
+
+$(document).ready(function() {
+    $("#contactSelect").change( () =>  $(".searchBtn").prop("disabled", false) );
+});
+
+$(document).ready(function() {
+    $("#contactType").change( () => $(".searchBtn").prop("disabled", true) );
+});
+
+/// POPULATES USER/CONTACT SELECT
+$(document).ready(function() { 
+    $("#contactType").change(function() {
+        if ($("#contactType option:selected").val() == 1 ) {           
+            $(document).ready(function() {
+                $.ajax({
+                    type: "GET",
+                    url: `${apiURL}/Account/UsersFullNames`,
+                    success: function(data) {
+                        var s = '<option value="-1" disabled selected>Please choose contact or user</option>'
+                        for (var i = 0; i < data.length; i++) {
+                            s += `<option value="${data[i].id}">${data[i].fullName}</option>`;
+                        }
+                        $("#contactSelect").html(s);
+                    }
+                });
+            });
+        }
+        if ($("#contactType option:selected").val() == 2 ) {
+            $(document).ready(function() {
+                $.ajax({
+                    type: "GET",
+                    url: `${apiURL}/Contact/1/ContactsFullNames`,
+                    success: function(data) {
+                        var s = '<option value="-1" disabled selected>Please choose contact or user</option>'
+                        for (var i = 0; i < data.length; i++) {
+                            s += `<option value="${data[i].id}">${data[i].fullName}</option>`;
+                        }
+                        $("#contactSelect").html(s);
+                    }
+                });
+            });
+        }
+    });
+});
+function showBorrowedDebtsFromLender() // activates after search click
 {
-    highlightAndShowTable($("#showDebtsToPerson"), $("#borrowedDebtsToPersonTable"))
-    $("#contactFinder").attr("style", ""); 
-}
-function showDebtsToPerson()
-{
+    let isLocal = $("#contactType") != 1;
     $.ajax({
         type: 'GET',
-        url: `${apiURL}/Debt/${$("#contactInput").val()}/Lent`,
+        url: `${apiURL}/Debt/1/BorrowedFromLender/${$("#contactSelect option:selected").val()}/${isLocal}`,
         dataType: 'json',
         contentType: 'application/json',
         success: function(data) {
-            populateDebtsFromPerson(data)
+            populateBorrowedDebtsFromLenderTable(data)
         },
         error:  function(){
             alert("Failed to load resources to last debts tables, check your internet connection!");
@@ -53,64 +105,35 @@ function showDebtsToPerson()
     });
 }
 
-function populateLastDebtsTable(data){
-    let tableBody = document.getElementById("borrowedDebtsTableBody")
-    tableBody.innerHTML = "";
+function populateBorrowedDebtsTable(data){
+    console.log(data);
+    let tableBody = $("#borrowedDebtsTableBody");
+    let rows = ""
     for(let row in data)
     {
-        let tableRow = tableBody.insertRow();
-        startDateCell = tableRow.insertCell();
-        startDateCell.innerHTML = new Date(data[row].debtStartDate).toLocaleDateString();
-        valueCell = tableRow.insertCell();
-        valueCell.innerHTML = data[row].value;
-        descriptionCell = tableRow.insertCell();
-        descriptionCell.innerHTML = data[row].name;
-        payedCell = tableRow.insertCell();
-        payedCell.innerHTML = data[row].payed == 'true';
-        borrowerCell = tableRow.insertCell();
-        borrowerCell.innerHTML = data[row].contactFullName;
-        editCell = tableRow.insertCell();
-        tableRow.setAttribute("data-debt-id", data[row].id);
-
+        rows += `<tr data-debt-id="${data[row].id}">
+        <td>${new Date(data[row].debtStartDate).toLocaleDateString()}</td>
+        <td>${data[row].value}</td>
+        <td>${data[row].name}</td>
+        <td>${data[row].isPayed === true}</td>
+        <td>${data[row].contactFullName}</td>
+        </tr>`
     }
+    tableBody.html(rows);
 }
-
-function populateDebtsFromPerson(data){
-    tableBody = document.getElementById("borrowedDebtsToPersonTableBody");
-    tableBody.innerHTML = "";
+function populateBorrowedDebtsFromLenderTable(data){
+    let tableBody = $("#borrowedDebtsFromLenderTableBody");
+    let rows = ""
     for(let row in data)
     {
-        let tableRow = tableBody.insertRow();
-        startDateCell = tableRow.insertCell();
-        startDateCell.innerHTML = new Date(data[row].debtStartDate).toLocaleDateString();
-        valueCell = tableRow.insertCell();
-        valueCell.innerHTML = data[row].value;
-        descriptionCell = tableRow.insertCell();
-        descriptionCell.innerHTML = data[row].name;
-        payedCell = tableRow.insertCell();
-        payedCell.innerHTML = data[row].payed == 'true';
-        editCell = tableRow.insertCell();
-        tableRow.setAttribute("data-debt-id", data[row].id)
-        
+        rows += `<tr data-debt-id="${data[row].id}">
+        <td>${new Date(data[row].debtStartDate).toLocaleDateString()}</td>
+        <td>${data[row].value}</td>
+        <td>${data[row].name}</td>
+        <td>${data[row].isPayed === true}</td>
+        </tr>`
     }
-
-    $("#contactType").change(function() {
-        if ($("#contactType option:selected").val() != -1)
-        {
-            $.ajax({
-                type: 'GET',
-                url: `${apiURL}/User/${$("#contactInput").val()}/Lent`,
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function(data) {
-                    populateDebtsFromPerson(data)
-                },
-                error:  function(){
-                    alert("Failed to load resources to last debts tables, check your internet connection!");
-                }
-            });
-        }
-    })
+    tableBody.html(rows);
 }
 
 

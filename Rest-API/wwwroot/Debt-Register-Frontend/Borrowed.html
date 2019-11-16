@@ -27,9 +27,9 @@
     <div class="container-fluid my-container">
       <div class="container-fluid my-container__top">
         <div class="offset-3 col-md-4 row last-and-to-person">
-            <a id="showLastDebts" href="#" onclick="showLastDebts()">Last debts</a>
+            <a id="borrowedDebts" href="#">Borrowed debts</a>
             <a>/</a>
-            <a id="showDebtsToPerson" href="#" onclick="showDebtsToPersonTable()">Debts to a contact</a>
+            <a id="borrowedDebtsFromLender" href="#" >Borrowed debts from</a>
         </div>
         <div id="contactFinder" class="offset-3 col-md-4 row last-and-to-person" style="display:none">
           <select id="contactType" class="">  
@@ -37,9 +37,11 @@
             <option value="1">User</option>
             <option value="2">Local contact</option>
           </select>
-          <select id="contactSelect"></select>
-          <input id="contactInput" class="input-sm" placeholder="Insert user id">
-          <button onclick="showDebtsToPerson()" class="btn btn-dark">search</button>
+          <select id="contactSelect">
+            <option value="-1" disabled selected>Please choose contact or user</option>
+          </select>
+          <!--<input id="contactInput" class="input-sm" placeholder="Insert user id"> !-->
+          <button onclick="showBorrowedDebtsFromLender()" class="btn btn-dark searchBtn" disabled>search</button>
           </div>
 
       </div>
@@ -71,8 +73,8 @@
                     </tbody>
                 </table>
             </div>
-            <div id="borrowedDebtsToPersonContainer" class=" offset-2 col-md-8 table-responsive">
-                <table id="borrowedDebtsToPersonTable" class="table table-light" style="display:none">
+            <div id="borrowedDebtsFromLenderContainer" class=" offset-2 col-md-8 table-responsive">
+                <table id="borrowedDebtsFromLenderTable" class="table table-light" style="display:none">
                     <thead>
                         <tr>
                             <th scope="col">Date</th>
@@ -81,7 +83,7 @@
                             <th scope="col">Payed</th>
                         </tr>
                     </thead>
-                    <tbody id="borrowedDebtsToPersonTableBody">
+                    <tbody id="borrowedDebtsFromLenderTableBody">
                         <tr>
                             
                         </tr>

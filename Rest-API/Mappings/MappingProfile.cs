@@ -20,6 +20,8 @@ namespace Rest_API.Mappings
         {
             CreateMap<Debt, DebtForTable>();
             CreateMap<Debt, DebtToOrFromForTable>();
+            CreateMap<User, LenderOrBorrowerForTable>();
+            CreateMap<Contact, LenderOrBorrowerForTable>();
         }
     }
 }
