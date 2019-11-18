@@ -26,23 +26,23 @@
     </nav>
     <div class="container-fluid my-container">
       <div class="container-fluid my-container__top">
-        <div class="offset-3 col-md-4 row last-and-to-person">
+        <div class="offset-3 col-md-7 row last-and-to-person">
             <a id="borrowedDebts" href="#">Borrowed debts</a>
             <a>/</a>
             <a id="borrowedDebtsFromLender" href="#" >Borrowed debts from</a>
         </div>
-        <div id="contactFinder" class="offset-3 col-md-4 row last-and-to-person" style="display:none">
-          <select id="contactType" class="">  
+        <div id="contactFinder" class="offset-3 col-md-7 row last-and-to-person" style="display:none">
+          <select id="contactType" class="col-md-2">  
             <option value="-1" disabled selected>Contact type</option>
             <option value="1">User</option>
             <option value="2">Local contact</option>
           </select>
-          <select id="contactSelect">
+          <select id="contactSelect" class="col-md-4">
             <option value="-1" disabled selected>Please choose contact or user</option>
           </select>
-          <!--<input id="contactInput" class="input-sm" placeholder="Insert user id"> !-->
           <button onclick="showBorrowedDebtsFromLender()" class="btn btn-dark searchBtn" disabled>search</button>
           </div>
+        
 
       </div>
       <div class="row container-fluid my-container_bottom">
