@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Rest_API.Models;
 using Rest_API.Models.DTOs;
@@ -119,9 +120,8 @@ namespace Rest_API.Controllers
 
         [HttpPost]
         [Route("AddDebt")]
-        public async Task AddDebtAsync(Debt debt) =>
-            await _debtRepository.CreateDebtAsync((debt));
-
+        public async Task<Object> AddDebtAsync(Debt debt) =>
+            await _debtRepository.CreateDebtAsync(debt);
         [HttpPut]
         [Route("{debtId}")]
         public async Task EditDebtAsync(Debt debt) =>

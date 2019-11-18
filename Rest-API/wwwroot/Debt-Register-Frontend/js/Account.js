@@ -1,9 +1,9 @@
+const apiURL = "https://localhost:44379/api";
 
 /// sign up function
 $('#signUpButton').click(function(e) {
     e.preventDefault();
-    console.log("lol");
-    var myData = {
+    var signUpData = {
         Username: $('#username').val(),
         Email: $('#email').val(),
         Password: $('#password').val(),
@@ -11,14 +11,16 @@ $('#signUpButton').click(function(e) {
     };
     $.ajax({
         type: 'POST',
-        url: 'https://localhost:44379/api/Account/Register',
+        url: `${apiURL}/Account/Register`,
         dataType: 'json',
-        data: JSON.stringify(myData),
+        data: JSON.stringify(signUpData),
         contentType: 'application/json',
         success: function(data) {
+            alert(`Welcome, you have created account successfuly ${data}`);
+            window.location.href = "Summary.html";  
         },
         error: function() {
-            alert("123")
+            alert("Data given is incorrect!")
         }
     });
     return false;
@@ -32,24 +34,25 @@ $("#btnLogin").click(function(event) {
     }
     else
     {
-        console.log("lol");
         event.preventDefault()
-        var myData = {
+        var signInData = {
             Username: $('#loginUsername').val(),
             Password: $('#loginPassword').val(),
         };
         $.ajax({
             type: 'POST',
-            url: 'https://localhost:44379/api/Account/Login',
+            url: `${apiURL}/Account/Login`,
             dataType: 'json',
-            data: JSON.stringify(myData),
+            data: JSON.stringify(signInData),
             contentType: 'application/json',
             success: function(data) {
-                     alert("signed in");
+                    console.log(data);
+                    alert(`signed in ${data}`);
+                     
                      window.location.href = "Summary.html";   
             },
             error: function(){
-               alert("you gave wrong credentials"); 
+               alert("you gave wrong credentials!"); 
             }
             
         });

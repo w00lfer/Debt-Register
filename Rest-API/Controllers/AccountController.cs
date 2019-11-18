@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using System.Security.Claims;
 
 namespace Rest_API.Controllers
 {
@@ -56,7 +57,8 @@ namespace Rest_API.Controllers
         //Post : /api/User/Login
         public async Task<Object> LoginAsync(SignInUser signInUser)
         {
-            var result = await _signInManager.PasswordSignInAsync(signInUser.UserName, signInUser.Password, false, true); 
+            var result = await _signInManager.PasswordSignInAsync(signInUser.UserName, signInUser.Password, false, true);
+
             return Ok(result);
         }
 

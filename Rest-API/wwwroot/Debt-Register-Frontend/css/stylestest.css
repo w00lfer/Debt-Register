@@ -1,4 +1,4 @@
-﻿html * {
+html * {
     font-family: 'Roboto', sans-serif;
 }
 body {
@@ -39,7 +39,7 @@ nav ul a:hover{
 }
 .my-container__top{
     
-    height: 15%;
+    height: 10%;
 }
 .last-and-to-person{
     top:30%;
@@ -55,7 +55,7 @@ nav ul a:hover{
     text-decoration: none;
 }
 .my-container__bottom{
-    height: 85%;
+    height: 90%;
 }
 .my-container-content{
     height: 70vh;
@@ -192,21 +192,6 @@ footer{
 .highlighted{
     font-weight: bolder;
 }
-
-
-
-/* ADD DEBT */
-
-#addDebtForm{
-    height:50%;
-    padding-top:10%;
-    padding-left:5%;
-    padding-right:5%;
-    padding-bottom:15;
-}
-
-.add-debt-form-container{
-    height:30%;
-    background-color: #d4d4d4;
-    border-radius: 45px;
+#borrowedDebtsContainer{
+    height:85%;
 }
