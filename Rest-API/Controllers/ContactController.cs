@@ -24,12 +24,12 @@ namespace Rest_API.Controllers
 
         [HttpGet]
         [Route("{userId}/ContactsFullNames")]
-        public async Task<Object> GetAllContactsNamesAsync(int userId) => 
+        public async Task<List<LenderOrBorrowerForTable>> GetAllContactsNamesAsync(int userId) => 
              _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(userId));
-
+                
         [HttpGet]
         [Route("{contactId}")]
-        public async Task<Object> GetContactByIdAsync(int contactId) => await _contactRepository.GetContactByIdAsync(contactId);
+        public async Task<Contact> GetContactByIdAsync(int contactId) => await _contactRepository.GetContactByIdAsync(contactId);
 
         [HttpPut]
         [Route("{contactId}")]

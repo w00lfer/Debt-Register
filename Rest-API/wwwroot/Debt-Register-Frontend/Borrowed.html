@@ -17,84 +17,86 @@
   </head>
 
   <body>
-    <nav class="top-navigation-bar navbar navbar-expand-lg">
-        <a class="navbar-brand" href="Summary.html">Debt register</a>
-        <ul class="ml-md-auto nav-sign my-3">
-          <a class="nav-item" href="SignUp.html">Sign up</a>
-          <a role="button"  data-toggle="modal" class="nav-item" href="#loginModal">Sign in</a>
-        </ul>
-    </nav>
-    <div class="container-fluid my-container">
-      <div class="container-fluid my-container__top">
-        <div class="offset-3 col-md-7 row last-and-to-person">
-            <a id="borrowedDebts" href="#">Borrowed debts</a>
-            <a>/</a>
-            <a id="borrowedDebtsFromLender" href="#" >Borrowed debts from</a>
-        </div>
-        <div id="contactFinder" class="offset-3 col-md-7 row last-and-to-person" style="display:none">
-          <select id="contactType" class="col-md-2">  
-            <option value="-1" disabled selected>Contact type</option>
-            <option value="1">User</option>
-            <option value="2">Local contact</option>
-          </select>
-          <select id="contactSelect" class="col-md-4">
-            <option value="-1" disabled selected>Please choose contact or user</option>
-          </select>
-          <button onclick="showBorrowedDebtsFromLender()" class="btn btn-dark searchBtn" disabled>search</button>
+    <div id="big-container">
+        <nav class="top-navigation-bar navbar navbar-expand-lg container-fluid">
+            <a class="navbar-brand" href="Summary.html">Debt register</a>
+            <ul class="ml-md-auto nav-sign my-3">
+              <a class="nav-item" href="SignUp.html">Sign up</a>
+              <a role="button"  data-toggle="modal" class="nav-item" href="#loginModal">Sign in</a>
+            </ul>
+        </nav>
+        <div class="container-fluid my-container">
+          <div class="container-fluid my-container__top">
+            <div class="offset-3 col-md-7 row last-and-to-person">
+                <a id="borrowedDebts" class="col-md-3" href="#">Borrowed debts</a>
+                <a id="borrowedDebtsFromLender" class="col-md-3" href="#" >Borrowed debts from</a>
+                <a id="addDebt" class="col-md-3 " href="#">Add borrowed debt</a>
+            </div>
+            <div id="contactFinder" class="offset-3 col-md-7 row last-and-to-person" style="display:none">
+              <select id="contactType" class="col-md-2 custom-select">  
+                <option value="-1" disabled selected>Contact type</option>
+                <option value="1">User</option>
+                <option value="2">Local contact</option>
+              </select>
+              <select id="contactSelect" class="col-md-4 custom-select">
+                <option value="-1" disabled selected>Please choose lender</option>
+              </select>
+              <button class="btn btn-dark searchBtn" disabled>search</button>
+            </div>
+            
+            
+    
           </div>
-        
-
-      </div>
-      <div class="row container-fluid my-container_bottom">
-        <div class="col-md-1 left-navigation-bar">
-          <ul>
-            <li><a href="Summary.html">Summary</a></li>
-            <li><a href="Lent.html">Lent</a></li>
-            <li><a href="Borrowed.html">Borrowed</a></li>
-            <li><a href="Contacts.html">Contacts</a></li>
-          </ul>
-        </div>
-        <div class="col-md-11 container-fluid my-container-content row">
-            <div id="borrowedDebtsContainer" class=" offset-2 col-md-8 table-responsive">
-                <table id="borrowedDebtsTable" class="table table-light" style="display:none">
-                    <thead>
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Value</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Payed</th>
-                            <th scope="col">Borrower</th>
-                        </tr>
-                    </thead>
-                    <tbody id="borrowedDebtsTableBody">
-                        <tr>
-                            
-                        </tr>
-                    </tbody>
-                </table>
+          <div class="container-fluid my-container_bottom row">
+            <div class="col-md-1 left-navigation-bar container-fluid">
+              <ul>
+                <li><a href="Summary.html">Summary</a></li>
+                <li><a href="Lent.html">Lent</a></li>
+                <li><a href="Borrowed.html">Borrowed</a></li>
+                <li><a href="Contacts.html">Contacts</a></li>
+              </ul>
             </div>
-            <div id="borrowedDebtsFromLenderContainer" class=" offset-2 col-md-8 table-responsive">
-                <table id="borrowedDebtsFromLenderTable" class="table table-light" style="display:none">
-                    <thead>
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Value</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Payed</th>
-                        </tr>
-                    </thead>
-                    <tbody id="borrowedDebtsFromLenderTableBody">
-                        <tr>
-                            
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-md-11 container-fluid my-container-content">
+                <div id="borrowedDebtsContainer" class=" offset-2 col-md-8 table-responsive">
+                    <table id="borrowedDebtsTable" class="table table-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Value</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Payed</th>
+                                <th scope="col">Lender</th>
+                            </tr>
+                        </thead>
+                        <tbody id="borrowedDebtsTableBody">
+                            <tr>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="borrowedDebtsFromLenderContainer" class=" offset-2 col-md-8 table-responsive">
+                    <table id="borrowedDebtsFromLenderTable" class="table table-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Value</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Payed</th>
+                            </tr>
+                        </thead>
+                        <tbody id="borrowedDebtsFromLenderTableBody" class=>
+                            <tr>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>        
             </div>
+          </div>
         </div>
-      </div>
+        <footer></footer>
     </div>
-    <footer></footer>
-    <script src="js/Shared.js"></script>
     <script src="js/Borrowed.js"></script>
   </body>
 </html>

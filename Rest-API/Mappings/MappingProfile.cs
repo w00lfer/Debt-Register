@@ -16,9 +16,18 @@ namespace Rest_API.Mappings
         //        : userRepository.GetUserByIdAsync(debt.LenderId).Result.FullName));
         //    CreateMap<Debt, DebtToOrFromForTable>();
         //}
+        //public MappingProfile()
+        //{
+        //    CreateMap<Debt, DebtForTable>();
+        //    CreateMap<Debt, DebtToOrFromForTable>();
+        //    CreateMap<User, LenderOrBorrowerForTable>();
+        //    CreateMap<Contact, LenderOrBorrowerForTable>();
+        //}
         public MappingProfile()
         {
-            CreateMap<Debt, DebtForTable>();
+            CreateMap<Debt, DebtForTable>()
+                .ForMember(dest => dest.ContactFullName
+                , opts => opts.MapFrom<FullnameResolver>());
             CreateMap<Debt, DebtToOrFromForTable>();
             CreateMap<User, LenderOrBorrowerForTable>();
             CreateMap<Contact, LenderOrBorrowerForTable>();

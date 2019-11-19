@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div id="big-container">
+        <nav class="top-navigation-bar navbar navbar-expand-lg container-fluid">
+            <a class="navbar-brand" href="Summary.html">Debt register</a>
+            <ul class="ml-md-auto nav-sign my-3">
+              <a class="nav-item" href="SignUp.html">Sign up</a>
+              <a role="button"  data-toggle="modal" class="nav-item" href="#loginModal">Sign in</a>
+            </ul>
+        </nav>
+        <div class="container-fluid my-container">
+          <div class="container-fluid my-container__top">
+                <div class="container-fluid">
+                 </div>
+          </div>
+          <div class="container-fluid my-container_bottom row">
+            <div class="col-md-1 left-navigation-bar container-fluid">
+              <ul>
+                <li><a href="Summary.html">Summary</a></li>
+                <li><a href="Lent.html">Lent</a></li>
+                <li><a href="Borrowed.html">Borrowed</a></li>
+                <li><a href="Contacts.html">Contacts</a></li>
+              </ul>
+            </div>
+            <div class="col-md-11 container-fluid my-container-content">  
+                <div class="container-fluid col-md-4 off-set-4 add-debt-form-container">
+                        <form class="form" role="form" autocomplete="off" id="addDebtForm" novalidate="" method="POST">
+                                <div>
+                                    <h3 id="debtTypeLabel" class="text-center mb-5">Add borrowed debt</h3>
+                                    <div class="form-group">
+                                        <div>
+                                            <select id="contactType" class=" custom-select col-md-4">  
+                                                <option value="-1" disabled selected>Lender type</option>
+                                                <option value="1">User</option>
+                                                <option value="2">Local contact</option>
+                                            </select>
+                                            <select id="contactSelect" class="custom-select col-md-7">
+                                                <option value="-1" disabled selected>Please choose lender</option>
+                                            </select>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="debtName" class="form-control" placeholder="Debt Name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="debtValue" class="form-control" placeholder="Value" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="debtDescription" class="form-control" placeholder="Debt description" />
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="isPayedCheck">
+                                        <label class="form-check-label" for="isPayedCheck">Is payed?</label>
+                                    </div>
+                                </div>
+                                <div >
+                                        <button id="addDebtButton" class="offset-3 btn btn-outline btn-lg btn-secondary">
+                                            Add debt
+                                        </button>
+                                        </div>
+                            </form>
+                </div>
+            </div>
+          </div>
+        </div>
+        <footer></footer>
+    </div>
+    <script src="js/Shared.js"></script>
+    <script src="js/addDebt.js"></script>
+  </body>
+</html>

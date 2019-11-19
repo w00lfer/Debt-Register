@@ -9,7 +9,7 @@ $(document).ready(function(){
         dataType: 'json',
         contentType: 'application/json',
         success: function(data) {
-            populateLastDebtsTable( document.getElementById("lastBorrowedDebtsTableBody"), data)
+            populateLastDebtsTable($("#lastBorrowedDebtsTableBody"), data)
         },
         error:  function(){
             alert("Failed to load resources to last debts tables, check your internet connection!");
@@ -22,7 +22,7 @@ $(document).ready(function(){
         dataType: 'json',
         contentType: 'application/json',
         success: function(data) {
-            populateLastDebtsTable( document.getElementById("lastLentDebtsTableBody"), data);
+            populateLastDebtsTable($("#lastLentDebtsTableBody"), data);
         },
         error:  function(){
             alert("Failed to load resources to last debts tables, check your internet connection!");
@@ -32,20 +32,16 @@ $(document).ready(function(){
 });
 
 function populateLastDebtsTable(tableBody, data){
-    let myData = data;
+    let rows  = "";
     for(let row in data)
     {
-        let tableRow = tableBody.insertRow();
-        startDateCell = tableRow.insertCell();
-        startDateCell.innerHTML = new Date(data[row].debtStartDate).toLocaleDateString();
-        valueCell = tableRow.insertCell();
-        valueCell.innerHTML = data[row].value;
-        descriptionCell = tableRow.insertCell();
-        descriptionCell.innerHTML = data[row].name;
-        payedCell = tableRow.insertCell();
-        payedCell.innerHTML = data[row].payed == 'true';
-        borrowerCell = tableRow.insertCell();
-        borrowerCell.innerHTML = data[row].contactFullName;
-        tableRow.setAttribute("data-debt-id", data[row].id)
+        rows += `<tr data-debt-id="${data[row].id}">
+        <td>${new Date(data[row].debtStartDate).toLocaleDateString()}</td>
+        <td>${data[row].value}</td>
+        <td>${data[row].name}</td>
+        <td>${data[row].isPayed === true}</td>
+        <td>${data[row].contactFullName}</td>
+        </tr>`
     }
+    $(tableBody).html(rows);
 }
