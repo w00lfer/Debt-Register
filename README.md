@@ -15,7 +15,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Debt register is an application to track your debts. Application is used for tracking your borrowed and lent debts from certain persons, which can be other users of application but also user can create local contacts to track to or from debts for persons who are not users of application.
+Debt register is an application to track your debts. Application is used for tracking your borrowed and lent debts from certain persons, who can be other users of application but also user can create local contacts to track to or from debts for persons who are not users of application.
 Application was mainly made to learn ```.NET Core Web API ``` and frontend technologies such a ```HTML, CSS, JavaScript (Vanilla JS + jQuery) ``` 
 
 ### Built With
