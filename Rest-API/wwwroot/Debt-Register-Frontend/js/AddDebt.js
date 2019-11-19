@@ -33,6 +33,7 @@ $(document).ready(function() {
 
 $("#addDebtButton").click( (e) => {
     e.preventDefault();
+    var currentURL = window.location.pathname;
     let addDebtData;
     currentURL.indexOf("Borrow") >=0 ?
         addDebtData = {
