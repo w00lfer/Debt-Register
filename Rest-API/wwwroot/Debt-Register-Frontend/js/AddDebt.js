@@ -1,6 +1,5 @@
  
 const apiURL = "https://localhost:44379/api"
-var currentURL = window.location.pathname;
 $(document).ready(() => { 
     $("#contactType").change(() => {
         if ($("#contactType option:selected").val() == 1 ) {           
@@ -61,7 +60,6 @@ $("#addDebtButton").click( (e) => {
             IsBorrowerLocal:($("#contactType option:selected").val() != 1),
             IsPayed: $("#isPayedCheck").prop("checked")
         }
-    console.log(addDebtData);
     $.ajax({
         type: 'POST',
         url: `${apiURL}/Debt/AddDebt`,
