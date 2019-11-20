@@ -1,36 +1,25 @@
 ﻿using AutoMapper;
 using Rest_API.Models;
 using Rest_API.Models.DTOs;
-using Rest_API.Repositories.Interfaces;
 
 namespace Rest_API.Mappings
 {
     public class MappingProfile : Profile
     {
-        //public MappingProfile(IContactRepository contactRepository, IUserRepository userRepository)
-        //{
-        //    CreateMap<Debt, DebtForTable>()
-        //        .ForMember(dest => dest.ContactFullName,
-        //        opts => opts.MapFrom(debt => debt.IsLenderLocal
-        //        ? contactRepository.GetContactByIdAsync(debt.LenderId).Result.FullName
-        //        : userRepository.GetUserByIdAsync(debt.LenderId).Result.FullName));
-        //    CreateMap<Debt, DebtToOrFromForTable>();
-        //}
-        //public MappingProfile()
-        //{
-        //    CreateMap<Debt, DebtForTable>();
-        //    CreateMap<Debt, DebtToOrFromForTable>();
-        //    CreateMap<User, LenderOrBorrowerForTable>();
-        //    CreateMap<Contact, LenderOrBorrowerForTable>();
-        //}
         public MappingProfile()
         {
             CreateMap<Debt, DebtForTable>()
-                .ForMember(dest => dest.ContactFullName
-                , opts => opts.MapFrom<FullnameResolver>());
+                .ForMember(dest => dest.ContactFullName, opts => opts.MapFrom<FullNameResolver>());
             CreateMap<Debt, DebtToOrFromForTable>();
             CreateMap<User, LenderOrBorrowerForTable>();
             CreateMap<Contact, LenderOrBorrowerForTable>();
+            CreateMap<AddBorrowedDebt, Debt>()
+                .ForMember(dest => dest.BorrowerId, opts => opts.MapFrom<CurrentUseridForAddBorrowedDebtResolver>())
+                .ForMember(dest => dest.IsBorrowerLocal, opts => opts.MapFrom(src => false)); // becuase in this case user is always borrower
+            CreateMap<AddLentDebt, Debt>()
+                .ForMember(dest => dest.LenderId, opts => opts.MapFrom<CurrentUseridForAddLentDebtResolver>())
+                .ForMember(dest => dest.IsLenderLocal, opts => opts.MapFrom(src => false)); // because in this case user is always lender
+                
         }
     }
 }

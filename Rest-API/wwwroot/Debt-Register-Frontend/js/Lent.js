@@ -20,9 +20,12 @@ function showLentDebts()
     $("#contactFinder").attr("style", "display:none");
     $.ajax({
         type: 'GET',
-        url: `${apiURL}/Debt/1/Lent`,
+        url: `${apiURL}/Debt/Lent`,
         dataType: 'json',
         contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
         success: function(data) {
             populateLentDebtsTable(data)
         },
@@ -62,6 +65,9 @@ $(document).ready(function() {
                 $.ajax({
                     type: "GET",
                     url: `${apiURL}/Account/UsersFullNames`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
                     success: function(data) {
                         var s = '<option value="-1" disabled selected>Please choose contact or user</option>'
                         for (var i = 0; i < data.length; i++) {
@@ -76,7 +82,10 @@ $(document).ready(function() {
             $(document).ready(function() {
                 $.ajax({
                     type: "GET",
-                    url: `${apiURL}/Contact/1/ContactsFullNames`,
+                    url: `${apiURL}/Contact/ContactsFullNames`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
                     success: function(data) {
                         var s = '<option value="-1" disabled selected>Please choose contact or user</option>'
                         for (var i = 0; i < data.length; i++) {
@@ -93,9 +102,12 @@ function showLentDebtsToBorrower() // activates after search click
 {
     $.ajax({
         type: 'GET',
-        url: `${apiURL}/Debt/1/LentToBorrower/${$("#contactSelect option:selected").val()}/${ $("#contactType").val() != 1}`,
+        url: `${apiURL}/Debt/LentToBorrower/${$("#contactSelect option:selected").val()}/${ $("#contactType").val() != 1}`,
         dataType: 'json',
         contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
         success: function(data) {
             populateLentDebtsToBorrowerTable(data)
         },

@@ -6,9 +6,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Rest_API.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Linq;
 
 namespace Rest_API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ContactController : ControllerBase
@@ -20,12 +24,15 @@ namespace Rest_API.Controllers
         {
             _contactRepository = contactRepository;
             _mapper = mapper;
-        } 
+        }
 
         [HttpGet]
-        [Route("{userId}/ContactsFullNames")]
-        public async Task<List<LenderOrBorrowerForTable>> GetAllContactsNamesAsync(int userId) => 
-             _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(userId));
+        [Route("ContactsFullNames")]
+        public async Task<List<LenderOrBorrowerForTable>> GetAllContactsNamesAsync()
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            return _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(Int32.Parse(claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value)));
+        }
                 
         [HttpGet]
         [Route("{contactId}")]

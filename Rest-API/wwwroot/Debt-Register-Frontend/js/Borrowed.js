@@ -16,13 +16,17 @@ function highlightAndShowTable(category, table)
 
 function showBorrowedDebts()
 {
+    localStorage.getItem("token");
     highlightAndShowTable($("#borrowedDebts"), $("#borrowedDebtsContainer"))
     $("#contactFinder").attr("style", "display:none");
     $.ajax({
         type: 'GET',
-        url: `${apiURL}/Debt/1/Borrowed`,
+        url: `${apiURL}/Debt/Borrowed`,
         dataType: 'json',
         contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
         success: (data) => populateBorrowedDebtsTable(data),
         error: () => alert("Failed to load resources to last debts tables, check your internet connection!")
     });
@@ -58,6 +62,9 @@ $(document).ready(() => {
                 $.ajax({
                     type: "GET",
                     url: `${apiURL}/Account/UsersFullNames`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
                     success: (data) => populateBorrowerNames(data)
                 });
             });
@@ -65,8 +72,11 @@ $(document).ready(() => {
         if ($("#contactType option:selected").val() == 2 ) {
             $(document).ready( () =>
                 $.ajax({
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
                     type: "GET",
-                    url: `${apiURL}/Contact/1/ContactsFullNames`,
+                    url: `${apiURL}/Contact/ContactsFullNames`,
                     success: (data) => populateBorrowerNames(data)
                 })
             );
@@ -78,9 +88,12 @@ function showBorrowedDebtsFromLender() // activated after search click
 {
     $.ajax({
         type: 'GET',
-        url: `${apiURL}/Debt/1/BorrowedFromLender/${$("#contactSelect option:selected").val()}/${$("#contactType").val() != 1}`,
+        url: `${apiURL}/Debt/BorrowedFromLender/${$("#contactSelect option:selected").val()}/${$("#contactType").val() != 1}`,
         dataType: 'json',
         contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
         success: (data) => populateBorrowedDebtsFromLenderTable(data),
         error:  () => alert("Failed to load resources to last debts tables, check your internet connection!")
     });

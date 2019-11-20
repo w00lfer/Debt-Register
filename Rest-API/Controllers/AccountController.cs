@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Rest_API.Models;
 using Rest_API.Models.DTOs;
@@ -6,8 +8,6 @@ using Rest_API.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
-using System.Security.Claims;
 
 namespace Rest_API.Controllers
 {
@@ -28,39 +28,6 @@ namespace Rest_API.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost]
-        [Route("Register")]
-        //POST : /api/User/Register
-        public async Task<Object> PostUserAsync(SignUpUser signUpUser)
-        {
-            try
-            {
-                var user = new User()
-                {
-                    UserName = signUpUser.UserName,
-                    Email = signUpUser.Email,
-                    FullName = signUpUser.FullName
-                };
-                var result = await _userRepository.CreateUserAsync(user, signUpUser.Password);
-                if (result.Succeeded) await _signInManager.SignInAsync(user, false);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex);
-                throw;
-            }
-        }
-
-        [HttpPost]
-        [Route("Login")]
-        //Post : /api/User/Login
-        public async Task<Object> LoginAsync(SignInUser signInUser)
-        {
-            var result = await _signInManager.PasswordSignInAsync(signInUser.UserName, signInUser.Password, false, true);
-
-            return Ok(result);
-        }
 
         [HttpPost]
         [Route("Logout")]
@@ -69,6 +36,7 @@ namespace Rest_API.Controllers
             throw new NotImplementedException();
         }
 
+        [Authorize]
         [HttpGet]
         [Route("UsersFullNames")]
         public async Task<List<LenderOrBorrowerForTable>> GetAllUsersFullNamesAsync() =>

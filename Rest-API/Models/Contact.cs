@@ -12,7 +12,6 @@ namespace Rest_API.Models
         public int CreatorId { get; set; }
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
-        public string UserPicture { get; set; }
 
     }
 }

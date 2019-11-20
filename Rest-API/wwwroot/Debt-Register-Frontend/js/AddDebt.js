@@ -7,6 +7,9 @@ $(document).ready(() => {
                 $.ajax({
                     type: "GET",
                     url: `${apiURL}/Account/UsersFullNames`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
                     success: (data) => populateContactNames(data)
                 });
             });
@@ -15,7 +18,10 @@ $(document).ready(() => {
             $(document).ready( () =>
                 $.ajax({
                     type: "GET",
-                    url: `${apiURL}/Contact/1/ContactsFullNames`,
+                    url: `${apiURL}/Contact/ContactsFullNames`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
                     success: (data) => populateContactNames(data)
                 })
             );
@@ -35,41 +41,55 @@ $("#addDebtButton").click( (e) => {
     e.preventDefault();
     var currentURL = window.location.pathname;
     let addDebtData;
-    currentURL.indexOf("Borrow") >=0 ?
-        addDebtData = {
+    if(currentURL.indexOf("Borrow") >=0)
+    {
+        addBorrowedDebtData = {
             Name: $('#debtName').val(),
             Value: parseFloat($('#debtValue').val()),
             Description: $('#debtDescription').val(),
             DebtStartDate: new Date(),
-            DebtEndDate: null,
             LenderId: parseInt($("#contactSelect option:selected").val()),
             IsLenderLocal: ($("#contactType option:selected").val() != 1),
-            BorrowerId: 1,
-            IsBorrowerLocal: false,
             IsPayed: $("#isPayedCheck").prop("checked")
-        }
-        :
-        addDebtData = {
+        };
+        $.ajax({
+            type: 'POST',
+            url: `${apiURL}/Debt/AddBorrowedDebt`,
+            dataType: 'json',
+            data: JSON.stringify(addBorrowedDebtData),
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            success: () => alert("udalo sie dodac"),
+            error: () => alert("nie udalo sie dodac")
+        });
+    }
+    else
+    {
+        addLentDebtData = {
             Name: $('#debtName').val(),
             Value: parseFloat($('#debtValue').val()),
             Description: $('#debtDescription').val(),
             DebtStartDate: new Date(),
-            DebtEndDate: null,
-            LenderId: 1,
-            IsLenderLocal: false,
             BorrowerId: parseInt($("#contactSelect option:selected").val()),
             IsBorrowerLocal:($("#contactType option:selected").val() != 1),
             IsPayed: $("#isPayedCheck").prop("checked")
-        }
-    $.ajax({
-        type: 'POST',
-        url: `${apiURL}/Debt/AddDebt`,
-        dataType: 'json',
-        data: JSON.stringify(addDebtData),
-        contentType: 'application/json',
-        success: () => alert("udalo sie dodac"),
-        error: () => alert("nie udalo sie dodac")
-    });
+        };
+        $.ajax({
+            type: 'POST',
+            url: `${apiURL}/Debt/AddLentDebt`,
+            dataType: 'json',
+            data: JSON.stringify(addLentDebtData),
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            success: () => alert("udalo sie dodac"),
+            error: () => alert("nie udalo sie dodac")
+        });
+    }
+    
     return false;
 });
 

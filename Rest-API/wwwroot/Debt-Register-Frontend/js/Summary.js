@@ -5,9 +5,12 @@ $(document).ready(function(){
     /// POPULATES LAST 5 BORROWED DEBTS
     $.ajax({
         type: 'GET',
-        url: `${apiURL}/Debt/1/LastBorrowed`,
+        url: `${apiURL}/Debt/LastBorrowed`,
         dataType: 'json',
         contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
         success: function(data) {
             populateLastDebtsTable($("#lastBorrowedDebtsTableBody"), data)
         },
@@ -18,9 +21,12 @@ $(document).ready(function(){
     /// POPULATES LAST 5 LENT DEBTS
     $.ajax({
         type: 'GET',
-        url: `${apiURL}/Debt/1/LastLent`,
+        url: `${apiURL}/Debt/LastLent`,
         dataType: 'json',
         contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
         success: function(data) {
             populateLastDebtsTable($("#lastLentDebtsTableBody"), data);
         },

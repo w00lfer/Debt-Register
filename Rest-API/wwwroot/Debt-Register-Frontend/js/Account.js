@@ -11,12 +11,13 @@ $('#signUpButton').click(function(e) {
     };
     $.ajax({
         type: 'POST',
-        url: `${apiURL}/Account/Register`,
+        url: `${apiURL}/Authenticate/Register`,
         dataType: 'json',
         data: JSON.stringify(signUpData),
         contentType: 'application/json',
         success: function(data) {
-            alert(`Welcome, you have created account successfuly ${data}`);
+            alert(`Welcome, you have created account successfuly `);            
+            localStorage.setItem("token", data.token);
             window.location.href = "Summary.html";  
         },
         error: function() {
@@ -41,14 +42,13 @@ $("#btnLogin").click(function(event) {
         };
         $.ajax({
             type: 'POST',
-            url: `${apiURL}/Account/Login`,
+            url: `${apiURL}/Authenticate/Login`,
             dataType: 'json',
             data: JSON.stringify(signInData),
             contentType: 'application/json',
             success: function(data) {
-                    console.log(data);
-                    alert(`signed in ${data}`);
-                     
+                     alert(`signed in`);
+                     localStorage.setItem("token", data.token);
                      window.location.href = "Summary.html";   
             },
             error: function(){
