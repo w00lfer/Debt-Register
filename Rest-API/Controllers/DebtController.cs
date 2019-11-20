@@ -30,7 +30,7 @@ namespace Rest_API.Controllers
             _contactRepository = contactRepository;
             _userRepository = userRepository;
             _mapper = mapper;
-            _userManager = userManager
+            _userManager = userManager;
         }
 
         [HttpGet]
