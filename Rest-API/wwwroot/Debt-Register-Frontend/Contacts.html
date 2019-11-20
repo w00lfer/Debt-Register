@@ -36,7 +36,45 @@
             <li><a href="Contacts.html">Contacts</a></li>
           </ul>
         </div>
-        <div class="col-md-11 container-fluid my-container-content row">
+        <div class="col-md-11 container-fluid my-container-content">
+            <div class="container-fluid col-md-4 off-set-4 add-contact-form-container">
+                <form class="form" role="form" autocomplete="off" id="addContactForm" novalidate="" method="POST">
+                        <div>
+                            <h3 id="debtTypeLabel" class="text-center mb-5">Add lent debt</h3>
+                            <div class="form-group">
+                                <div>
+                                    <select id="contactType" class=" custom-select col-md-4">  
+                                        <option value="-1" disabled selected>Borrower type</option>
+                                        <option value="1">User</option>
+                                        <option value="2">Local contact</option>
+                                    </select>
+                                    <select id="contactSelect" class="custom-select col-md-7">
+                                        <option value="-1" disabled selected>Please choose borrower</option>
+                                    </select>
+                                </div>
+                               
+                            </div>
+                            <div class="form-group">
+                                <input id="debtName" class="form-control" placeholder="Debt Name" />
+                            </div>
+                            <div class="form-group">
+                                <input id="debtValue" class="form-control" placeholder="Value" />
+                            </div>
+                            <div class="form-group">
+                                <input id="debtDescription" class="form-control" placeholder="Debt description" />
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="isPayedCheck">
+                                <label class="form-check-label" for="isPayedCheck">Is payed?</label>
+                            </div>
+                        </div>
+                        <div >
+                                <button id="addDebtButton" class="offset-3 btn btn-outline btn-lg btn-secondary">
+                                    Add debt
+                                </button>
+                                </div>
+                    </form>
+        </div>
         </div>
       </div>
     </div>

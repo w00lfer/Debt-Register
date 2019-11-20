@@ -210,3 +210,17 @@ footer{
     background-color: #d4d4d4;
     border-radius: 45px;
 }
+
+.add-contact-form-container{
+    height:30%;
+    background-color: #d4d4d4;
+    border-radius: 45px;
+}
+
+#addContactForm{
+    height:50%;
+    padding-top:10%;
+    padding-left:5%;
+    padding-right:5%;
+    padding-bottom:15;
+}
