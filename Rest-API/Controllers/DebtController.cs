@@ -36,33 +36,33 @@ namespace Rest_API.Controllers
         [HttpGet]
         [Route("Borrowed")]
         public async Task<List<DebtForTable>> GetAllBorrowedDebtsAsync() =>
-            _mapper.Map<List<DebtForTable>>(await _debtRepository.GetAllBorrowedDebtsAsync(GetCurrentUserId()));
+            _mapper.Map<List<DebtForTable>>(await _debtRepository.GetAllBorrowedDebtsAsync(await GetCurrentUserId()));
 
         [HttpGet]
         [Route("LastBorrowed")]
         public async Task<List<DebtForTable>> GetLastBorrowedDebtsAsync() =>
-            _mapper.Map<List<DebtForTable>>(await _debtRepository.GetLastBorrowedDebtsAsync(GetCurrentUserId()));
+            _mapper.Map<List<DebtForTable>>(await _debtRepository.GetLastBorrowedDebtsAsync(await GetCurrentUserId()));
         
         [HttpGet]
         [Route("BorrowedFromLender/{lenderId}/{isLocal}")]
         public async Task<List<DebtToOrFromForTable>> GetAllBorrowedDebtsFromLenderAsync(int lenderId, bool isLocal) =>
-            _mapper.Map<List<DebtToOrFromForTable>>(await _debtRepository.GetAllBorrowedDebtsFromLenderAsync(GetCurrentUserId(), isLocal, lenderId));
+            _mapper.Map<List<DebtToOrFromForTable>>(await _debtRepository.GetAllBorrowedDebtsFromLenderAsync(await GetCurrentUserId(), isLocal, lenderId));
  
 
         [HttpGet]
         [Route("Lent")]
         public async Task<List<DebtForTable>> GetAllLentDebtsAsync() =>
-            _mapper.Map<List<DebtForTable>>(await _debtRepository.GetAllLentDebtsAsync(GetCurrentUserId()));
+            _mapper.Map<List<DebtForTable>>(await _debtRepository.GetAllLentDebtsAsync(await GetCurrentUserId()));
 
         [HttpGet]
         [Route("LastLent")]
         public async Task<List<DebtForTable>> GetLastLentDebtsAsync() =>
-            _mapper.Map<List<DebtForTable>>(await _debtRepository.GetLastLentDebtsAsync(GetCurrentUserId()));
+            _mapper.Map<List<DebtForTable>>(await _debtRepository.GetLastLentDebtsAsync(await GetCurrentUserId()));
 
         [HttpGet]
         [Route("LentToBorrower/{borrowerId}/{isLocal}")]
         public async Task<List<DebtToOrFromForTable>> GetAllLentDebtsToBorrowerAsync(bool isLocal, int borrowerId) =>
-            _mapper.Map<List<DebtToOrFromForTable>>(await _debtRepository.GetAllLentDebtsToBorrowerAsync(GetCurrentUserId(), isLocal, borrowerId));
+            _mapper.Map<List<DebtToOrFromForTable>>(await _debtRepository.GetAllLentDebtsToBorrowerAsync(await GetCurrentUserId(), isLocal, borrowerId));
 
 
         [HttpGet]
@@ -95,11 +95,10 @@ namespace Rest_API.Controllers
         public async Task DeleteDebtAsync(Debt debt) =>
             await _debtRepository.DeleteDebtAsync(debt);
 
-        private int GetCurrentUserId()
+        private async Task<int> GetCurrentUserId()
         {
-            //_userManager.GetUserIdAsync(User)
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            return Int32.Parse(claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            var currentUser = await _userManager.GetUserAsync(User);
+            return currentUser.Id;
         }
     }
 }

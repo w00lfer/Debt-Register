@@ -9,6 +9,7 @@ using Rest_API.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace Rest_API.Controllers
 {
@@ -18,11 +19,13 @@ namespace Rest_API.Controllers
     public class ContactController : ControllerBase
     {
         private readonly IContactRepository _contactRepository;
+        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public ContactController(IContactRepository contactRepository, IMapper mapper)
+        public ContactController(IContactRepository contactRepository, UserManager<User> userManager, IMapper mapper)
         {
             _contactRepository = contactRepository;
+            _userManager = userManager;
             _mapper = mapper;
         }
 
@@ -30,8 +33,8 @@ namespace Rest_API.Controllers
         [Route("ContactsFullNames")]
         public async Task<List<LenderOrBorrowerForTable>> GetAllContactsNamesAsync()
         {
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            return _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(Int32.Parse(claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value)));
+            var currentUser = await _userManager.GetUserAsync(User);
+            return _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(currentUser.Id));
         }
                 
         [HttpGet]
