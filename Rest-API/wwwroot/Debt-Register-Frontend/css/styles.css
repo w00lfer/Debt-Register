@@ -27,9 +27,9 @@ nav ul a:hover{
 .navbar-brand:hover{
     text-decoration: none !important;
 }
-.nav-sign{
-    
-    display: inline-block;
+.dropdown-menu{
+    left: auto !important;
+    right: 0 !important;   
 }
 .my-container {
     height: 92vh;
@@ -188,11 +188,11 @@ footer{
 }
 /* SUMMARY */
 
-/* Borrowed and Lent*/
+/* BORROWED AND LENT */
 .highlighted{
     font-weight: bolder;
 }
-
+ /* BORROWED AND LENT */
 
 
 /* ADD DEBT */
@@ -204,6 +204,10 @@ footer{
     padding-right:5%;
     padding-bottom:15;
 }
+
+/* ADD DEBT */
+
+/* CONTACTS */
 
 .add-debt-form-container{
     height:30%;
@@ -223,4 +227,29 @@ footer{
     padding-left:5%;
     padding-right:5%;
     padding-bottom:15;
+}
+/*CONTACTS */
+
+/* USER PROFILE */
+.user-profile-form-container{
+    height:30%;
+    background-color: #d4d4d4;
+    border-radius: 45px;
+}
+
+#userProfileForm{
+    height:50%;
+    padding-top:10%;
+    padding-left:5%;
+    padding-right:5%;
+    padding-bottom:15;
+}
+#userProfileForm a{
+    text-decoration: none;
+
+    color:#333
+}
+#userProfileForm a:hover{
+    color:black;
+    font-weight: bold;
 }

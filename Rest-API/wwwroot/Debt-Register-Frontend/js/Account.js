@@ -15,14 +15,12 @@ $('#signUpButton').click(function(e) {
         dataType: 'json',
         data: JSON.stringify(signUpData),
         contentType: 'application/json',
-        success: function(data) {
+        success: () => {
             alert(`Welcome, you have created account successfuly `);            
             localStorage.setItem("token", data.token);
             window.location.href = "Summary.html";  
         },
-        error: function() {
-            alert("Data given is incorrect!")
-        }
+        error: () => alert("Data given is incorrect!")
     });
     return false;
 });
@@ -46,23 +44,16 @@ $("#btnLogin").click(function(event) {
             dataType: 'json',
             data: JSON.stringify(signInData),
             contentType: 'application/json',
-            success: function(data) {
+            success: (data) => {
                      alert(`signed in`);
                      localStorage.setItem("token", data.token);
                      window.location.href = "Summary.html";   
             },
-            error: function(){
-               alert("you gave wrong credentials!"); 
-            }
-            
+            error: () => alert("you gave wrong credentials!")
         });
         
     }
 });
 
-//// sign up redirect from sign in modal
-//$("#signUp").click(function(event) {
-//    window.location.href = "SignUp.html";
-// })
-
 $("#signUp").click(() => window.location.href = 'SignUp.html');
+

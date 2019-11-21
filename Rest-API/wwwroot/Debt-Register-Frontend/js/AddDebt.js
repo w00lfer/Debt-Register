@@ -55,7 +55,6 @@ $("#addDebtButton").click( (e) => {
         $.ajax({
             type: 'POST',
             url: `${apiURL}/Debt/AddBorrowedDebt`,
-            dataType: 'json',
             data: JSON.stringify(addBorrowedDebtData),
             contentType: 'application/json',
             headers: {
@@ -69,7 +68,7 @@ $("#addDebtButton").click( (e) => {
     {
         addLentDebtData = {
             Name: $('#debtName').val(),
-            Value: parseFloat($('#debtValue').val()),
+            Value: parseFloat($('#debtVal   ue').val()),
             Description: $('#debtDescription').val(),
             DebtStartDate: new Date(),
             BorrowerId: parseInt($("#contactSelect option:selected").val()),
@@ -79,7 +78,6 @@ $("#addDebtButton").click( (e) => {
         $.ajax({
             type: 'POST',
             url: `${apiURL}/Debt/AddLentDebt`,
-            dataType: 'json',
             data: JSON.stringify(addLentDebtData),
             contentType: 'application/json',
             headers: {

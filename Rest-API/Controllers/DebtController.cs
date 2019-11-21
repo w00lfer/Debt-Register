@@ -95,10 +95,6 @@ namespace Rest_API.Controllers
         public async Task DeleteDebtAsync(Debt debt) =>
             await _debtRepository.DeleteDebtAsync(debt);
 
-        private async Task<int> GetCurrentUserId()
-        {
-            var currentUser = await _userManager.GetUserAsync(User);
-            return currentUser.Id;
-        }
+        private async Task<int> GetCurrentUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
     }
 }

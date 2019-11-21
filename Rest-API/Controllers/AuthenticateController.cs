@@ -43,7 +43,8 @@ namespace Rest_API.Controllers
 
                 var authClaims = new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString())
+                    new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
+                    new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
                 };
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This is my custom Secret key for authnetication"));
@@ -82,7 +83,8 @@ namespace Rest_API.Controllers
                 await _signInManager.SignInAsync(user, false);
                 var authClaims = new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString())
+                    new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
+                    new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
                 };
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This is my custom Secret key for authnetication"));

@@ -33,8 +33,7 @@ namespace Rest_API.Controllers
         [Route("ContactsFullNames")]
         public async Task<List<LenderOrBorrowerForTable>> GetAllContactsNamesAsync()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            return _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(currentUser.Id));
+            return _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)));
         }
                 
         [HttpGet]

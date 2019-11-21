@@ -9,7 +9,7 @@ namespace Rest_API.Repositories.Interfaces
     public interface IUserRepository
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
-        Task<SignUpUser> GetUserByIdAsync(int userId);
+        Task<User> GetUserByIdAsync(int userId);
         Task<IdentityResult> CreateUserAsync(User user, string password);
     }
 }
