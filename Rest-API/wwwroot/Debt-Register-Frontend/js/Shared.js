@@ -12,6 +12,10 @@ $(document).ready( () => {
           };
           $(".username").text(parseJwt(token).unique_name);
     }
+    else {
+        alert("You are not logged in! Stop cheating")
+        window.location.href="Homepage.html";
+    }
 });
 
 $(document).ready( () => {

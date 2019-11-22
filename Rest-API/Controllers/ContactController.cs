@@ -29,12 +29,15 @@ namespace Rest_API.Controllers
             _mapper = mapper;
         }
 
+
+        [HttpGet]
+        public async Task<List<ContactForTable>> GetAllContactsAsync() =>
+            _mapper.Map<List<ContactForTable>>(await _contactRepository.GetAllContactsAsync(GetCurrentUserId()));
+
         [HttpGet]
         [Route("ContactsFullNames")]
-        public async Task<List<LenderOrBorrowerForTable>> GetAllContactsNamesAsync()
-        {
-            return _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)));
-        }
+        public async Task<List<LenderOrBorrowerForTable>> GetAllContactsNamesAsync() =>
+            _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(GetCurrentUserId()));
                 
         [HttpGet]
         [Route("{contactId}")]
@@ -42,16 +45,31 @@ namespace Rest_API.Controllers
 
         [HttpPut]
         [Route("{contactId}")]
-        public async Task EditContactAsync(Contact contact) => await _contactRepository.EditContactAsync(contact);
+        public async Task<IActionResult> EditContactAsync(int contactId, EditContact editContact)
+        {
+            if (contactId != editContact.Id) return BadRequest();
+            await _contactRepository.EditContactAsync(_mapper.Map<Contact>(editContact));
+            return Ok();
+        }
+
 
         [HttpDelete]
         [Route("{contactId}")]
-        public async Task DeleteContactAsync(Contact contact) => await _contactRepository.DeleteContactAsync(contact);
-        
+        public async Task<IActionResult> DeleteContactAsync(int contactId)
+        {
+            await _contactRepository.DeleteContactAsync(await _contactRepository.GetContactByIdAsync(contactId));
+            return Ok();
+        }
+
+        // TO DO CREATION OF CONTACT WITH VALIDATION ON FULLNAME TO BE NOT THE SAME AS OTHER ONE FOR SAME USER!
         [HttpPost]
         [Route("AddContact")]
-        public async Task CreateContactAsync(Contact contact) => await _contactRepository.CreateContactAsync(contact);
+        public async Task CreateContactAsync(AddContact addContact)
+        {
+            await _contactRepository.CreateContactAsync(_mapper.Map<Contact>(addContact));
+            return Ok();
+        }
 
-        
+        private int GetCurrentUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
     }
 }

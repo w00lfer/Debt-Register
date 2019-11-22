@@ -19,7 +19,12 @@ namespace Rest_API.Mappings
             CreateMap<AddLentDebt, Debt>()
                 .ForMember(dest => dest.LenderId, opts => opts.MapFrom<CurrentUseridForAddLentDebtResolver>())
                 .ForMember(dest => dest.IsLenderLocal, opts => opts.MapFrom(src => false)); // because in this case user is always lender
-            CreateMap<User, UserInfoForProfile>();   
+            CreateMap<User, UserInfoForProfile>();
+            CreateMap<Contact, ContactForTable>();
+            CreateMap<AddContact, Contact>()
+                .ForMember(dest => dest.CreatorId, opts => opts.MapFrom<CurrentUserIdForAddContactResolver>());
+            CreateMap<EditContact, Contact>()
+                .ForMember(dest => dest.CreatorId, opts => opts.MapFrom<CurrentUserIdForEditContactResolver>());
         }
     }
 }

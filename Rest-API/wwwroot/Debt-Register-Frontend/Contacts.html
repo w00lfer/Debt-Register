@@ -17,73 +17,55 @@
   </head>
 
   <body>
-      <nav class="top-navigation-bar navbar navbar-expand-lg">
-          <a class="navbar-brand" href="Summary.html">Debt register</a>
-          <div class="ml-md-auto nav-sign my-3">
-            <div>
-                <a class="username dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="UserProfile.html">Account</a>
-                    <a class="dropdown-item logout" href="#">Logout</a>
-                </div>
+    <div id="big-container">
+    <nav class="top-navigation-bar navbar navbar-expand-lg">
+        <a class="navbar-brand" href="Summary.html">Debt register</a>
+        <div class="ml-md-auto nav-sign my-3">
+          <div>
+              <a class="username dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" href="UserProfile.html">Account</a>
+                  <a class="dropdown-item logout" href="#">Logout</a>
+              </div>
+          </div>
+        </div>
+    </nav>
+        <div class="container-fluid my-container">
+          <div class="container-fluid my-container__top">
+          </div>
+          <div class="container-fluid my-container_bottom row">
+            <div id="addContactModalContainer"></div>
+            <div id="editContactModalContainer"></div>
+            <div class="col-md-1 left-navigation-bar container-fluid">
+              <ul>
+                <li><a href="Summary.html">Summary</a></li>
+                <li><a href="Lent.html">Lent</a></li>
+                <li><a href="Borrowed.html">Borrowed</a></li>
+                <li><a href="Contacts.html">Contacts</a></li>
+              </ul>
+            </div>
+            <div class="col-md-11 container-fluid my-container-content">
+                <div id="contactsContainer" class=" offset-1 col-md-10 table-responsive">
+                    <table id="contactsTable" class="table table-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">Fullname</th>
+                                <th scope="col">Phonenumber</th>
+                                <th scope="col"><a" class="btn btn-danger btn-sm addContact">Add contact</a></th>
+                            </tr>
+                        </thead>
+                        <tbody id="contactsTableBody">
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>  
             </div>
           </div>
-      </nav>
-    <div class="container-fluid my-container">
-      <div class="container-fluid my-container__top">
-      </div>
-      <div class="row container-fluid my-container_bottom">
-        <div class="col-md-1 left-navigation-bar">
-          <ul>
-            <li><a href="Summary.html">Summary</a></li>
-            <li><a href="Lent.html">Lent</a></li>
-            <li><a href="Borrowed.html">Borrowed</a></li>
-            <li><a href="Contacts.html">Contacts</a></li>
-          </ul>
         </div>
-        <div class="col-md-11 container-fluid my-container-content">
-            <div class="container-fluid col-md-4 off-set-4 add-contact-form-container">
-                <form class="form" role="form" autocomplete="off" id="addContactForm" novalidate="" method="POST">
-                        <div>
-                            <h3 id="debtTypeLabel" class="text-center mb-5">Add lent debt</h3>
-                            <div class="form-group">
-                                <div>
-                                    <select id="contactType" class=" custom-select col-md-4">  
-                                        <option value="-1" disabled selected>Borrower type</option>
-                                        <option value="1">User</option>
-                                        <option value="2">Local contact</option>
-                                    </select>
-                                    <select id="contactSelect" class="custom-select col-md-7">
-                                        <option value="-1" disabled selected>Please choose borrower</option>
-                                    </select>
-                                </div>
-                               
-                            </div>
-                            <div class="form-group">
-                                <input id="debtName" class="form-control" placeholder="Debt Name" />
-                            </div>
-                            <div class="form-group">
-                                <input id="debtValue" class="form-control" placeholder="Value" />
-                            </div>
-                            <div class="form-group">
-                                <input id="debtDescription" class="form-control" placeholder="Debt description" />
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="isPayedCheck">
-                                <label class="form-check-label" for="isPayedCheck">Is payed?</label>
-                            </div>
-                        </div>
-                        <div >
-                                <button id="addDebtButton" class="offset-3 btn btn-outline btn-lg btn-secondary">
-                                    Add debt
-                                </button>
-                                </div>
-                    </form>
-        </div>
-        </div>
-      </div>
+        <footer></footer>
     </div>
-    <footer></footer>
     <script src="js/Shared.js"></script>
+    <script src="js/Contacts.js"></script>
   </body>
 </html>

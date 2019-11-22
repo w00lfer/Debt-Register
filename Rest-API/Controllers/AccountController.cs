@@ -42,7 +42,7 @@ namespace Rest_API.Controllers
         [HttpGet]
         [Route("UsersFullNames")]
         public async Task<List<LenderOrBorrowerForTable>> GetAllUsersFullNamesAsync() =>
-            _mapper.Map<List<LenderOrBorrowerForTable>>(await _userRepository.GetAllUsersAsync());
+            _mapper.Map<List<LenderOrBorrowerForTable>>(await _userRepository.GetAllUsersExceptCurrentAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)));
 
         [HttpPost]
         [Route("ChangePassword")]
@@ -75,11 +75,7 @@ namespace Rest_API.Controllers
 
         [HttpGet]
         [Route("UserProfile")]
-        public async Task<UserInfoForProfile> GetUserInfoForProfile()
-        {
-            var user = await _userRepository.GetUserByIdAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value));
-            var userinfo = _mapper.Map<UserInfoForProfile>(await _userRepository.GetUserByIdAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)));
-                return _mapper.Map<UserInfoForProfile>(await _userRepository.GetUserByIdAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)));
-        }
+        public async Task<UserInfoForProfile> GetUserInfoForProfile() =>
+            _mapper.Map<UserInfoForProfile>(await _userRepository.GetUserByIdAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)));
         }
 }

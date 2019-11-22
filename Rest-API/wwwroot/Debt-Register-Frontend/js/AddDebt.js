@@ -91,7 +91,18 @@ $("#addDebtButton").click( (e) => {
     return false;
 });
 
-
+$(document).ready( () =>{
+    $(".cancel-add-borrowed-debt").click( (e) => {
+        window.location.href = "Borrowed.html";
+        e.preventDefault();
+    });
+});
+$(document).ready( () =>{
+    $(".cancel-add-lent-debt").click( (e) => {
+         window.location.href = "Lent.html";
+         e.preventDefault();
+        });
+});
 function populateContactNames(data){ 
     var s = '<option value="-1" disabled selected>Please choose contact or user</option>'
     for (var i = 0; i < data.length; i++) {

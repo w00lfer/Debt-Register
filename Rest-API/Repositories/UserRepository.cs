@@ -22,6 +22,8 @@ namespace Rest_API.Repositories
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync() => await _userManager.Users.ToListAsync();
+        public async Task<IEnumerable<User>> GetAllUsersExceptCurrentAsync(int currentUserId) =>
+            await _userManager.Users.AsQueryable().Where(user => user.Id != currentUserId).ToListAsync();
         public async Task<User> GetUserByIdAsync(int userId) => await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId);
         public async Task<IdentityResult> CreateUserAsync(User user, string password) => await _userManager.CreateAsync(user, password);
     }

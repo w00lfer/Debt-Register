@@ -5,32 +5,6 @@ $(document).ready( () => showBorrowedDebts());
 
 $("#addDebt").click( () => window.location.href = 'AddBorrowedDebt.html');
 
-function highlightAndShowTable(category, table)
-{
-    $(".highlighted").removeClass("highlighted"); // removes highlight class from previous element
-    $(category).addClass("highlighted"); // highlights desired element
-    $("table[style=''] tbody").html(""); // deletes elements from previous table body
-    $(".my-container-content div").attr("style","display: none;"); // hides table 
-    $(table).attr("style", ""); // shows desired table
-}
-
-function showBorrowedDebts()
-{
-    localStorage.getItem("token");
-    highlightAndShowTable($("#borrowedDebts"), $("#borrowedDebtsContainer"))
-    $("#contactFinder").attr("style", "display:none");
-    $.ajax({
-        type: 'GET',
-        url: `${apiURL}/Debt/Borrowed`,
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
-        success: (data) => populateBorrowedDebtsTable(data),
-        error: () => alert("Failed to load resources to last debts tables, check your internet connection!")
-    });
-}
 
 $(document).ready(() => { 
     $("#borrowedDebtsFromLender").click( () => {
@@ -54,6 +28,11 @@ $(document).ready(() => {
 $(document).ready(function() {
     $(".searchBtn").click( () => showBorrowedDebtsFromLender());
 })
+
+$(document).ready(function() {
+    $(".searchBtn").click( () => showBorrowedDebtsFromLender());
+})
+
 /// POPULATES USER/CONTACT SELECT
 $(document).ready(() => { 
     $("#contactType").change(() => {
@@ -83,6 +62,50 @@ $(document).ready(() => {
         }
     });
 });
+$(document).ready( () => {
+    $("tbody").on("click", '.delete', function(e) {
+        debtId = $(this).closest("tr").attr("data-debt-id");
+        $.ajax({
+            type: 'DELETE',
+            url: `${apiURL}/Debt/${debtId}`,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            success: () => {
+                alert("You have successfuly deleted a debt");
+                showBorrowedDebts();
+            },
+            error: () => alert("Failed to delete a debt")
+        })
+    });
+});
+
+function highlightAndShowTable(category, table)
+{
+    $(".highlighted").removeClass("highlighted"); // removes highlight class from previous element
+    $(category).addClass("highlighted"); // highlights desired element
+    $("table[style=''] tbody").html(""); // deletes elements from previous table body
+    $(".my-container-content div").attr("style","display: none;"); // hides table 
+    $(table).attr("style", ""); // shows desired table
+}
+
+function showBorrowedDebts()
+{
+    localStorage.getItem("token");
+    highlightAndShowTable($("#borrowedDebts"), $("#borrowedDebtsContainer"))
+    $("#contactFinder").attr("style", "display:none");
+    $.ajax({
+        type: 'GET',
+        url: `${apiURL}/Debt/Borrowed`,
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        success: (data) => populateBorrowedDebtsTable(data),
+        error: () => alert("Failed to load resources to last debts tables, check your internet connection!")
+    });
+}
 
 function showBorrowedDebtsFromLender() // activated after search click
 {
@@ -110,6 +133,11 @@ function populateBorrowedDebtsTable(data){
         <td>${data[row].name}</td>
         <td>${data[row].isPayed === true}</td>
         <td>${data[row].contactFullName}</td>
+        <td>
+            <a href=\"#\" class=\"view"\ >View</a>
+            <a href=\"#\" class=\"edit"\ >Edit</a> 
+            <a href=\"#\" class=\"delete"\ >Delete</a>
+        </td>
         </tr>`
     }
     tableBody.html(rows);
@@ -125,6 +153,11 @@ function populateBorrowedDebtsFromLenderTable(data){
         <td>${data[row].value}</td>
         <td>${data[row].name}</td>
         <td>${data[row].isPayed === true}</td>
+        <td>
+            <a href=\"#\" class=\"view"\ >View</a>
+            <a href=\"#\" class=\"edit"\ >Edit</a> 
+            <a href=\"#\" class=\"delete"\ >Delete</a>
+        </td>
         </tr>`
     }
     tableBody.html(rows);

@@ -5,36 +5,6 @@ $(document).ready( () => showLentDebts());
 
 $("#addDebt").click( () => window.location.href = 'AddLentDebt.html');
 
-function highlightAndShowTable(category, table)
-{
-    $(".highlighted").removeClass("highlighted"); // removes highlight class from previous element
-    $(category).addClass("highlighted"); // highlights desired element
-    $("table[style=''] tbody").html(""); // deletes elements from previous table body
-    $(".my-container-content div").attr("style","display: none;"); // hides table 
-    $(table).attr("style", ""); // shows desired table
-}
-
-function showLentDebts()
-{
-    highlightAndShowTable($("#lentDebts"), $("#lentDebtsContainer"))
-    $("#contactFinder").attr("style", "display:none");
-    $.ajax({
-        type: 'GET',
-        url: `${apiURL}/Debt/Lent`,
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
-        success: function(data) {
-            populateLentDebtsTable(data)
-        },
-        error:  function(){
-            alert("Failed to load resources to last debts tables, check your internet connection!");
-        }
-    });
-}
-
 $(document).ready(function() { 
     $("#lentDebtsToBorrower").click(function(){
         highlightAndShowTable($("#lentDebtsToBorrower"), $("#lentDebtsToBorrowerContainer"));
@@ -98,6 +68,56 @@ $(document).ready(function() {
         }
     });
 });
+    
+$(document).ready( () => {
+    $("tbody").on("click", '.delete', function(e) {
+        debtId = $(this).closest("tr").attr("data-debt-id");
+        $.ajax({
+            type: 'DELETE',
+            url: `${apiURL}/Debt/${debtId}`,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            success: () => {
+                alert("You have successfuly deleted a debt");
+                showLentDebts();
+            },
+            error: () => alert("Failed to delete a debt")
+        })
+    });
+});
+
+
+function highlightAndShowTable(category, table)
+{
+    $(".highlighted").removeClass("highlighted"); // removes highlight class from previous element
+    $(category).addClass("highlighted"); // highlights desired element
+    $(".my-container-content div").attr("style","display: none;"); // hides table 
+    $("table tbody").html(""); // deletes elements from previous table body
+    $(table).attr("style", ""); // shows desired table
+}
+
+function showLentDebts()
+{
+    highlightAndShowTable($("#lentDebts"), $("#lentDebtsContainer"))
+    $("#contactFinder").attr("style", "display:none");
+    $.ajax({
+        type: 'GET',
+        url: `${apiURL}/Debt/Lent`,
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        success: function(data) {
+            populateLentDebtsTable(data)
+        },
+        error:  function(){
+            alert("Failed to load resources to last debts tables, check your internet connection!");
+        }
+    });
+}
+
 function showLentDebtsToBorrower() // activates after search click
 {
     $.ajax({
@@ -128,6 +148,11 @@ function populateLentDebtsTable(data){
         <td>${data[row].name}</td>
         <td>${data[row].isPayed === true}</td>
         <td>${data[row].contactFullName}</td>
+        <td>
+            <a href=\"#\" class=\"view"\ >View</a>
+            <a href=\"#\" class=\"edit"\ >Edit</a> 
+            <a href=\"#\" class=\"delete"\ >Delete</a>
+        </td>
         </tr>`
     }
     tableBody.html(rows);
@@ -143,6 +168,11 @@ function populateLentDebtsToBorrowerTable(data){
         <td>${data[row].value}</td>
         <td>${data[row].name}</td>
         <td>${data[row].isPayed === true}</td>
+        <td>
+            <a href=\"#\" class=\"view"\ >View</a>
+            <a href=\"#\" class=\"edit"\ >Edit</a> 
+            <a href=\"#\" class=\"delete"\ >Delete</a>
+        </td>
         </tr>`
     }
     tableBody.html(rows);
