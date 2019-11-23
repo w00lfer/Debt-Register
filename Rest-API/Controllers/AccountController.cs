@@ -33,7 +33,7 @@ namespace Rest_API.Controllers
 
         [HttpPost]
         [Route("Logout")]
-        public async Task<Object> LogoutAsync( )
+        public async Task<IActionResult> LogoutAsync( )
         {
             await _signInManager.SignOutAsync();
             return Ok();
@@ -48,7 +48,7 @@ namespace Rest_API.Controllers
         [Route("ChangePassword")]
         public async Task<IActionResult> ChangeUserPassword(ChangePassword changePassword)
         {
-            User currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await _userManager.GetUserAsync(User);
             await _userManager.ChangePasswordAsync(currentUser, changePassword.CurrentPassword, changePassword.NewPassword);
             return Ok();
         }
@@ -57,7 +57,7 @@ namespace Rest_API.Controllers
         [Route("ChangeUserFullName")]
         public async Task<IActionResult> ChangeUserFullName([FromForm] string userFullName)
         {
-            User currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await _userManager.GetUserAsync(User);
             currentUser.FullName = userFullName;
             await _userManager.UpdateAsync(currentUser);
             return Ok();
@@ -67,7 +67,7 @@ namespace Rest_API.Controllers
         [Route("ChangePhoneNumber")]
         public async Task<IActionResult> ChangeUserPhoneNumber([FromForm] string userPhoneNumber)
         {
-            User currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await _userManager.GetUserAsync(User);
             currentUser.PhoneNumber = userPhoneNumber;
             await _userManager.UpdateAsync(currentUser);
             return Ok();

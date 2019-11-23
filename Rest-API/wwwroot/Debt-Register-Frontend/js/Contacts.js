@@ -23,8 +23,8 @@ $(document).ready(() => {
                 },
                 success: () => {
                     alert("You have successfuly deleted a contact");
-                    showContacts();
                     $(".btn-cancel-add-contact").click();
+                    showContacts();
                 },
                 error: () => alert("Failed to delete a contact")
             })
@@ -34,16 +34,12 @@ $(document).ready(() => {
 });
 
 $(document).ready( () => $("tbody").on("click", ".editContact", function(e) {
-    console.log($(this).closest("tr"))
     createEditContactModal($(this).closest("tr"));
 }));
 
 // EDIT A CONTACT
 $(document).ready( () => {
-    console.log("heeej");
     $(document).on("click", "#btnEditContact", function(e) {
-        
-        console.log("lol");
         let contactId = $("#formEditContact").attr("data-contact-id");
         let contact = {
             id: parseInt($("#formEditContact").attr("data-contact-id")),
@@ -60,6 +56,7 @@ $(document).ready( () => {
             },
             success: () => {
                 alert("You have successfuly edited a contact");
+                $(".btn-cancel-edit-contact").click();
                 showContacts();
             },
             error: () => alert("Failed to edited a contact")
@@ -179,7 +176,7 @@ function createEditContactModal(row)
                         <div class="invalid-feedback">Oops, you missed this one.</div>
                     </div>
                     <div class="form-group py-4">
-                        <button class="btn btn-outline-secondary btn-lg" data-dismiss="modal"aria-hidden="true">Cancel</button>
+                        <button class="btn btn-outline-secondary btn-lg btn-cancel-edit-contact" data-dismiss="modal"aria-hidden="true">Cancel</button>
                         <button class="btn btn-secondary btn-lg float-right" id="btnEditContact">Edit contact</button>
                     </div>
                 </form>

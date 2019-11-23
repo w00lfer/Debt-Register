@@ -150,7 +150,6 @@ function populateLentDebtsTable(data){
         <td>${data[row].contactFullName}</td>
         <td>
             <a href=\"#\" class=\"view"\ >View</a>
-            <a href=\"#\" class=\"edit"\ >Edit</a> 
             <a href=\"#\" class=\"delete"\ >Delete</a>
         </td>
         </tr>`
@@ -169,8 +168,7 @@ function populateLentDebtsToBorrowerTable(data){
         <td>${data[row].name}</td>
         <td>${data[row].isPayed === true}</td>
         <td>
-            <a href=\"#\" class=\"view"\ >View</a>
-            <a href=\"#\" class=\"edit"\ >Edit</a> 
+            <a href=\"#\" class=\"view"\ >View</a>  
             <a href=\"#\" class=\"delete"\ >Delete</a>
         </td>
         </tr>`

@@ -64,7 +64,7 @@ namespace Rest_API.Controllers
         // TO DO CREATION OF CONTACT WITH VALIDATION ON FULLNAME TO BE NOT THE SAME AS OTHER ONE FOR SAME USER!
         [HttpPost]
         [Route("AddContact")]
-        public async Task CreateContactAsync(AddContact addContact)
+        public async Task<IActionResult> CreateContactAsync(AddContact addContact)
         {
             await _contactRepository.CreateContactAsync(_mapper.Map<Contact>(addContact));
             return Ok();
