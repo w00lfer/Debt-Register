@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Rest_API.Mappings;
 using Rest_API.Models;
 using Rest_API.Models.DTOs;
 using Rest_API.Repositories;
@@ -43,7 +44,8 @@ namespace Rest_API
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 4;
             });
-            services.AddAutoMapper(typeof(Startup));
+            //services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IDebtRepository, DebtRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IUserRepository, UserRepository>();

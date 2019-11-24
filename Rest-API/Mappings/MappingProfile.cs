@@ -9,7 +9,7 @@ namespace Rest_API.Mappings
         public MappingProfile()
         {
             CreateMap<Debt, DebtForTable>()
-                .ForMember(dest => dest.ContactFullName, opts => opts.MapFrom<FullNameResolver>());
+                .ForMember(dest => dest.ContactFullName, opts => opts.MapFrom<FullNameForTableResolver>());
             CreateMap<Debt, DebtToOrFromForTable>();
             CreateMap<User, LenderOrBorrowerForTable>();
             CreateMap<Contact, LenderOrBorrowerForTable>();
@@ -25,6 +25,8 @@ namespace Rest_API.Mappings
                 .ForMember(dest => dest.CreatorId, opts => opts.MapFrom<CurrentUserIdForAddContactResolver>());
             CreateMap<EditContact, Contact>()
                 .ForMember(dest => dest.CreatorId, opts => opts.MapFrom<CurrentUserIdForEditContactResolver>());
+            CreateMap<Debt, ViewDebt>()
+                .ForMember(dest => dest.ContactFullName, opts => opts.MapFrom<FullNameForViewDebtResolver>());
         }
     }
 }

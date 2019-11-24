@@ -41,7 +41,7 @@ $("#addDebtButton").click( (e) => {
     e.preventDefault();
     var currentURL = window.location.pathname;
     let addDebtData;
-    if(currentURL.indexOf("Borrow") >=0)
+    if(currentURL.indexOf("Borrow") >=0) // if path name is borrowed then
     {
         addBorrowedDebtData = {
             Name: $('#debtName').val(),
@@ -60,7 +60,10 @@ $("#addDebtButton").click( (e) => {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             },
-            success: () => alert("udalo sie dodac"),
+            success: () => {
+                alert("udalo sie dodac")
+                window.location.href = "Borrowed.html";
+            },    
             error: () => alert("nie udalo sie dodac")
         });
     }
@@ -68,7 +71,7 @@ $("#addDebtButton").click( (e) => {
     {
         addLentDebtData = {
             Name: $('#debtName').val(),
-            Value: parseFloat($('#debtVal   ue').val()),
+            Value: parseFloat($('#debtValue').val()),
             Description: $('#debtDescription').val(),
             DebtStartDate: new Date(),
             BorrowerId: parseInt($("#contactSelect option:selected").val()),
@@ -83,7 +86,10 @@ $("#addDebtButton").click( (e) => {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             },
-            success: () => alert("udalo sie dodac"),
+            success: () => {
+                alert("udalo sie dodac")
+                window.location.href = "Lent.html";
+            },
             error: () => alert("nie udalo sie dodac")
         });
     }

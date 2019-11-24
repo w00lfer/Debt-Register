@@ -36,7 +36,7 @@ $(document).ready(function() {
 /// POPULATES USER/CONTACT SELECT
 $(document).ready(() => { 
     $("#contactType").change(() => {
-        if ($("#contactType option:selected").val() == 1 ) {           
+        if ($("#contactType option:selected").val() == 1 ) {     // users       
             $(document).ready(() => {
                 $.ajax({
                     type: "GET",
@@ -44,24 +44,28 @@ $(document).ready(() => {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     },
-                    success: (data) => populateBorrowerNames(data)
+                    success: (data) => populateBorrowerNames(data),
+                    error:  () => alert("cannot get list of users")
                 });
             });
         }
-        if ($("#contactType option:selected").val() == 2 ) {
+        if ($("#contactType option:selected").val() == 2 ) { // contacts
             $(document).ready( () =>
                 $.ajax({
+                    type: "GET",
+                    url: `${apiURL}/Contact/ContactsFullNames`,
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     },
-                    type: "GET",
-                    url: `${apiURL}/Contact/ContactsFullNames`,
-                    success: (data) => populateBorrowerNames(data)
+                    success: (data) => populateBorrowerNames(data),
+                    error : () => alert("cannot get list of contacts")
                 })
             );
         }
     });
 });
+
+// DELETE DEBT
 $(document).ready( () => {
     $("tbody").on("click", '.delete', function(e) {
         debtId = $(this).closest("tr").attr("data-debt-id");
@@ -76,6 +80,26 @@ $(document).ready( () => {
                 showBorrowedDebts();
             },
             error: () => alert("Failed to delete a debt")
+        })
+    });
+});
+
+// GET DEBT FOR VIEW
+$(document).ready( () => {
+    $("tbody").on("click", '.view', function()  {
+        debtId = $(this).closest("tr").attr("data-debt-id");
+        $.ajax({
+            type: 'GET',
+            url: `${apiURL}/Debt/ViewDebt/${debtId}`,
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            success: (data) => {
+                createViewDebtModal(data)
+            },
+            error: () => alert("Failed to view a debt")
         })
     });
 });
@@ -169,43 +193,38 @@ function populateBorrowerNames(data){
      $("#contactSelect").html(s);
 }
 
-function createViewDebtModal(){
+function createViewDebtModal(debtInfo){
     var html =
     `<div id="viewDebtModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
            <div class="modal-content">
              <div class="modal-header">
-                 <h3>Sign in</h3>
-                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                     ×
-                 </button>
+                <h3> ${debtInfo.name}</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
              </div>
              <div class="modal-body">
-                 <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
-                     <div class="form-group">
-                         <input type="text" class="form-control form-control-lg" name="uname1" id="loginUsername"
-                             required="" placeholder="Username" />
-                         <div class="invalid-feedback">Oops, you missed this one.</div>
-                     </div>
-                     <div class="form-group">
-                         <input type="password" class="form-control form-control-lg" id="loginPassword" required=""
-                             autocomplete="new-password" placeholder="Password" />
-                         <div class="invalid-feedback">Enter your password too!</div>
-                     </div>
-                     <div class="custom-control custom-checkbox">
-                         <input type="checkbox" class="custom-control-input" id="rememberMe" />
-                         <label class="custom-control-label" for="rememberMe">Remember me on this
-                             computer</label>
-                     </div>
-                     <div class="form-group py-4">
-                         <button class="btn btn-outline-secondary btn-lg btn-cancel-view-debt" data-dismiss="modal"aria-hidden="true"> Cancel </button>
-                     </div>
-                 </form>
+                <form class="form" role="form" autocomplete="off" id="formEditContact" novalidate="" method="POST">
+                    <div class="form-group">
+                        <h5>Date: ${debtInfo.debtStartDate}</h5>
+                        <h5>Lender: ${debtInfo.contactFullName}</h5>
+                        <h5>Value: ${debtInfo.value}</h5>
+                        <h5>Is payed? ${debtInfo.payed === true ? "yes" : "no"}</h5>
+                    </div>
+                    <div class="form-group">
+                        <h6>Description: ${debtInfo.description}</h6> 
+                    </div>
+                    <div class="form-group py-4">
+                        <button class="btn btn-outline-secondary btn-lg btn-cancel-edit-contact float-right" data-dismiss="modal"aria-hidden="true">Cancel</button>
+                    </div>
+                </form>
+                    
              </div>
          </div>
      </div>
     </div>`
-    $(".sign-in-modal-container").html(html);
-    $("#signInModal").modal();
+    $(".view-debt-modal-container").html(html);
+    $("#viewDebtModal").modal();
 }
 

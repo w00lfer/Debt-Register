@@ -87,6 +87,26 @@ $(document).ready( () => {
     });
 });
 
+// GET DEBT FOR VIEW
+$(document).ready( () => {
+    $("tbody").on("click", '.view', function()  {
+        debtId = $(this).closest("tr").attr("data-debt-id");
+        $.ajax({
+            type: 'GET',
+            url: `${apiURL}/Debt/ViewDebt/${debtId}`,
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            success: (data) => {
+                createViewDebtModal(data)
+            },
+            error: () => alert("Failed to view a debt")
+        })
+    });
+});
+
 
 function highlightAndShowTable(category, table)
 {
@@ -138,6 +158,7 @@ function showLentDebtsToBorrower() // activates after search click
 }
 
 function populateLentDebtsTable(data){
+    console.log(data);
     let tableBody = $("#lentDebtsTableBody");
     let rows = ""
     for(let row in data)
@@ -175,5 +196,41 @@ function populateLentDebtsToBorrowerTable(data){
     }
     tableBody.html(rows);
 }
+
+function createViewDebtModal(debtInfo){
+    var html =
+    `<div id="viewDebtModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+                <h3> ${debtInfo.name}</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+             </div>
+             <div class="modal-body">
+                <form class="form" role="form" autocomplete="off" id="formEditContact" novalidate="" method="POST">
+                    <div class="form-group">
+                        <h5>Date: ${debtInfo.debtStartDate}</h5>
+                        <h5>Lender: ${debtInfo.contactFullName}</h5>
+                        <h5>Value: ${debtInfo.value}</h5>
+                        <h5>Is payed? ${debtInfo.payed === true ? "yes" : "no"}</h5>
+                    </div>
+                    <div class="form-group">
+                        <h6>Description: ${debtInfo.description}</h6> 
+                    </div>
+                    <div class="form-group py-4">
+                        <button class="btn btn-outline-secondary btn-lg btn-cancel-edit-contact float-right" data-dismiss="modal"aria-hidden="true">Cancel</button>
+                    </div>
+                </form>
+                    
+             </div>
+         </div>
+     </div>
+    </div>`
+    $(".view-debt-modal-container").html(html);
+    $("#viewDebtModal").modal();
+}
+
 
 

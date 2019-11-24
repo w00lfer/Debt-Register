@@ -64,12 +64,12 @@ namespace Rest_API.Controllers
 
 
         [HttpGet]
-        [Route("{debtId}")]
-        public async Task<Debt> GetDebtByIdAsync(int debtId) =>
-            await _debtRepository.GetDebtByIdAsync(debtId);
+        [Route("ViewDebt/{debtId}")]
+        public async Task<ViewDebt> GetDebtForViewByIdAsync(int debtId) =>
+            _mapper.Map<ViewDebt>(await _debtRepository.GetDebtByIdAsync(debtId));
 
         [HttpPost]
-        [Route("AddBorrowedDebt")]
+        [Route("AddBorrowedDebt")]  
         public async Task<IActionResult> AddBorrowedDebtAsync(AddBorrowedDebt addBorrowedDebt)
         {
             await _debtRepository.CreateDebtAsync(_mapper.Map<Debt>(addBorrowedDebt));
@@ -83,16 +83,14 @@ namespace Rest_API.Controllers
             await _debtRepository.CreateDebtAsync(_mapper.Map<Debt>(addLentDebt));
             return Ok();
         }
-        [HttpPut]
-        [Route("{debtId}")]
-        public async Task EditDebtAsync(Debt debt) =>
-            await _debtRepository.EditDebtAsync(debt);
 
-        
         [HttpDelete]
         [Route("{debtId}")]
-        public async Task DeleteDebtAsync(int debtId) =>
+        public async Task<IActionResult> DeleteDebtAsync(int debtId)
+        {
             await _debtRepository.DeleteDebtAsync(await _debtRepository.GetDebtByIdAsync(debtId));
+            return Ok();
+        }
 
         private int GetCurrentUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
     }
