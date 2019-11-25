@@ -16,11 +16,11 @@
 ## About The Project
 
 Debt register is an application to track your debts. Application is used for tracking your borrowed and lent debts from certain persons, who can be other users of application but also user can create local contacts to track to or from debts for persons who are not users of application.
-Application was mainly made to learn ```.NET Core Web API ``` and frontend technologies such a ```HTML, CSS, JavaScript (Vanilla JS + jQuery) ``` 
+Application was mainly made to learn ```.NET Core 3.0 Web API ``` and frontend technologies such a ```HTML, CSS, JavaScript (Vanilla JS + jQuery) ``` 
 
 ### Built With
 I have built this application using:
-* [.NET core Web API](https://docs.microsoft.com/pl-pl/aspnet/core/web-api) - to build API for the aplication.
+* [.NET Core 3.0 Web API](https://docs.microsoft.com/pl-pl/aspnet/core/web-api) - to build API for the aplication.
 * [HTML](#)
 * [CSS](#)
 * [JavaScript](#) - ```Vanilla JS and jQuery```
