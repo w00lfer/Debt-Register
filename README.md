@@ -20,7 +20,7 @@ Application was mainly made to learn ```.NET Core 3.0 Web API ``` and frontend t
 
 ### Built With
 I have built this application using:
-* [.NET Core 3.0 Web API](https://docs.microsoft.com/pl-pl/aspnet/core/web-api) - to build API for the aplication.
+* [.NET Core 3.0 Web API](https://docs.microsoft.com/pl-pl/aspnet/core/web-api) and [Entity Framework Core](https://docs.microsoft.com/pl-pl/ef/core/) - to build API for the aplication.
 * [HTML](#)
 * [CSS](#)
 * [JavaScript](#) - ```Vanilla JS and jQuery```
