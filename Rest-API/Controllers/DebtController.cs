@@ -17,18 +17,11 @@ namespace Rest_API.Controllers
     public class DebtController : ControllerBase
     {
         private readonly IDebtRepository _debtRepository;
-        private readonly IContactRepository _contactRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly UserManager<User> _userManager;
-
         private readonly IMapper _mapper;
         public DebtController(IDebtRepository debtRepository, IContactRepository contactRepository, IUserRepository userRepository, IMapper mapper, UserManager<User> userManager)
         {
             _debtRepository = debtRepository;
-            _contactRepository = contactRepository;
-            _userRepository = userRepository;
             _mapper = mapper;
-            _userManager = userManager;
         }
 
         [HttpGet]

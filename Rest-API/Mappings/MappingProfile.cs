@@ -8,6 +8,7 @@ namespace Rest_API.Mappings
     {
         public MappingProfile()
         {
+            CreateMap<User, SignUpUser>();
             CreateMap<Debt, DebtForTable>()
                 .ForMember(dest => dest.ContactFullName, opts => opts.MapFrom<FullNameForTableResolver>());
             CreateMap<Debt, DebtToOrFromForTable>();

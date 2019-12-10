@@ -7,7 +7,8 @@ $('#signUpButton').click(function(e) {
         Username: $('#username').val(),
         Email: $('#email').val(),
         Password: $('#password').val(),
-        FullName: $('#fullname').val()
+        FullName: $('#fullname').val(),
+        TelephoneNumber: $('#telephoneNumber').val()
     };
     $.ajax({
         type: 'POST',
@@ -15,8 +16,8 @@ $('#signUpButton').click(function(e) {
         dataType: 'json',
         data: JSON.stringify(signUpData),
         contentType: 'application/json',
-        success: () => {
-            alert(`Welcome, you have created account successfuly `);            
+        success: (data) => {
+            alert(`Welcome, you have created account successfuly!`);
             localStorage.setItem("token", data.token);
             window.location.href = "Summary.html";  
         },

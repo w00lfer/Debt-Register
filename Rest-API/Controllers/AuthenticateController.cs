@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -24,12 +25,14 @@ namespace Rest_API.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public AuthenticateController(UserManager<User> userManager, SignInManager<User> signInManager, IUserRepository userRepository)
+        public AuthenticateController(UserManager<User> userManager, SignInManager<User> signInManager, IUserRepository userRepository, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -70,12 +73,7 @@ namespace Rest_API.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register(SignUpUser signUpUser)
         {
-            var user = new User()
-            {
-                UserName = signUpUser.UserName,
-                FullName = signUpUser.FullName,
-                Email = signUpUser.Email,
-            };
+            var user =_mapper.Map<User>(signUpUser);
             var isUsernameAlreadyTaken = await _userManager.FindByNameAsync(user.UserName) !=null;
             var accountCreationResult = await _userRepository.CreateUserAsync(user, signUpUser.Password);
             if (!isUsernameAlreadyTaken && accountCreationResult.Succeeded)

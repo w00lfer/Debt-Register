@@ -117,7 +117,7 @@ footer{
     z-index: 1;
     position: relative;
     height: 55% !important;
-    background-image: url(/css/images/financeComp.jpg);
+    background-image: url(images/financeComp.jpg);
     background-repeat: no-repeat;
     background-size: cover; 
 }
