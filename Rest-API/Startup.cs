@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,11 +13,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Rest_API.Mappings;
 using Rest_API.Models;
 using Rest_API.Models.DTOs;
 using Rest_API.Repositories;
 using Rest_API.Repositories.Interfaces;
+using Rest_API.Services;
+using Rest_API.Services.Interfaces;
 
 namespace Rest_API
 {
@@ -44,8 +49,8 @@ namespace Rest_API
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 4;
             });
-            //services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(typeof(MappingProfile));
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDebtRepository, DebtRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -69,8 +74,33 @@ namespace Rest_API
                     ValidateAudience = true,
                     ValidAudience = "http://dotnetdetail.net",
                     ValidIssuer = "http://dotnetdetail.net",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This is my custom Secret key for authnetication"))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This is my custom Secret key for authentication"))
                 };
+            });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Debt Register", Version = "v1" });
+                var securitySchema = new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Just paste token you got from signin in or signin up",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                };
+                c.AddSecurityDefinition("Bearer", securitySchema);
+
+                var securityRequirement = new OpenApiSecurityRequirement();
+                securityRequirement.Add(securitySchema, new[] { "Bearer" });
+                c.AddSecurityRequirement(securityRequirement);
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
             services.AddControllers();
         }
@@ -94,6 +124,11 @@ namespace Rest_API
                 await next.Invoke();
             });
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Color Diary v1");
+            });
             app.UseCors(builder =>
                 builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
             );
