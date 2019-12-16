@@ -1,81 +1,77 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Rest_API.Models;
 using Rest_API.Models.DTOs;
-using Rest_API.Repositories.Interfaces;
-using System;
+using Rest_API.Services.Interfaces;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Rest_API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly  IUserRepository _userRepository;
-        private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IUserRepository userRepository, IMapper mapper)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _userRepository = userRepository;
-            _mapper = mapper;
-        }
+        public AccountController(IUserService userService) => _userService = userService;
 
+                [HttpPost]
+        [AllowAnonymous]
+        [Route("Login")]
+        public async Task<IActionResult> Login(SignInUser signInUser) => Ok(await _userService.SignInUserAsync(signInUser));
 
         [HttpPost]
+        [AllowAnonymous]
+        [Route("Register")]
+        public async Task<IActionResult> Register(SignUpUser signUpUser) => Ok(await _userService.SignUpUserAsync(signUpUser));
+
+        [HttpPost]
+        [Authorize]
         [Route("Logout")]
-        public async Task<IActionResult> LogoutAsync( )
+        public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
-            return Ok();
+            await _userService.LogoutAsync();
+            return Ok("You have logout successfuly");
         }
 
         [HttpGet]
+        [Authorize]
         [Route("UsersFullNames")]
         public async Task<List<LenderOrBorrowerForTable>> GetAllUsersFullNamesAsync() =>
-            _mapper.Map<List<LenderOrBorrowerForTable>>(await _userRepository.GetAllUsersExceptCurrentAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)));
+           await _userService.GetAllUsersExceptCurrentForTableAsync();
 
         [HttpPost]
+        [Authorize]
         [Route("ChangePassword")]
         public async Task<IActionResult> ChangeUserPassword(ChangePassword changePassword)
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            await _userManager.ChangePasswordAsync(currentUser, changePassword.CurrentPassword, changePassword.NewPassword);
-            return Ok();
+            await _userService.ChangeUserPassword(changePassword);
+            return Ok("You have changed password successfully");
         }
 
         [HttpPost]
-        [Route("ChangeUserFullName")]
+        [Authorize]
+        [Route("ChangeUserFullNameAsync")]
         public async Task<IActionResult> ChangeUserFullName([FromForm] string userFullName)
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            currentUser.FullName = userFullName;
-            await _userManager.UpdateAsync(currentUser);
-            return Ok();
+            await _userService.ChangeUserFullNameAsync(userFullName);
+            return Ok("You have changed fullname successfully");
         }
 
         [HttpPost]
+        [Authorize]
         [Route("ChangePhoneNumber")]
         public async Task<IActionResult> ChangeUserPhoneNumber([FromForm] string userPhoneNumber)
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            currentUser.PhoneNumber = userPhoneNumber;
-            await _userManager.UpdateAsync(currentUser);
-            return Ok();
+            await _userService.ChangeUserPhoneNumberAsync(userPhoneNumber);
+            return Ok("You have changed fullname successfully");
         }
 
         [HttpGet]
+        [Authorize]
         [Route("UserProfile")]
         public async Task<UserInfoForProfile> GetUserInfoForProfile() =>
-            _mapper.Map<UserInfoForProfile>(await _userRepository.GetUserByIdAsync(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)));
-        }
+            await _userService.GetUserInfoForProfileAsync();
+    }
 }

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
+using Rest_API.Services.Interfaces;
 
 namespace Rest_API.Controllers
 {
@@ -18,38 +19,31 @@ namespace Rest_API.Controllers
     [ApiController]
     public class ContactController : ControllerBase
     {
-        private readonly IContactRepository _contactRepository;
-        private readonly UserManager<User> _userManager;
-        private readonly IMapper _mapper;
+        private readonly IContactService _contactService;
 
-        public ContactController(IContactRepository contactRepository, UserManager<User> userManager, IMapper mapper)
-        {
-            _contactRepository = contactRepository;
-            _userManager = userManager;
-            _mapper = mapper;
-        }
+        public ContactController(IContactService contactSerivce) => _contactService = contactSerivce;
 
 
         [HttpGet]
         public async Task<List<ContactForTable>> GetAllContactsAsync() =>
-            _mapper.Map<List<ContactForTable>>(await _contactRepository.GetAllContactsAsync(GetCurrentUserId()));
+            await _contactService.GetAllContactsAsync();
 
         [HttpGet]
         [Route("ContactsFullNames")]
         public async Task<List<LenderOrBorrowerForTable>> GetAllContactsNamesAsync() =>
-            _mapper.Map<List<LenderOrBorrowerForTable>>(await _contactRepository.GetAllContactsAsync(GetCurrentUserId()));
+            await _contactService.GetAllContactsNamesAsync();
                 
         [HttpGet]
         [Route("{contactId}")]
-        public async Task<Contact> GetContactByIdAsync(int contactId) => await _contactRepository.GetContactByIdAsync(contactId);
+        public async Task<Contact> GetContactByIdAsync(int contactId) =>
+            await _contactService.GetContactByIdAsync(contactId);
 
         [HttpPut]
         [Route("{contactId}")]
-        public async Task<IActionResult> EditContactAsync(int contactId, EditContact editContact)
+        public async Task<IActionResult> EditContactAsync(EditContact editContact)
         {
-            if (contactId != editContact.Id) return BadRequest();
-            await _contactRepository.EditContactAsync(_mapper.Map<Contact>(editContact));
-            return Ok();
+            await _contactService.EditContactAsync(editContact);
+            return Ok("You have edited contact successfully");
         }
 
 
@@ -57,7 +51,7 @@ namespace Rest_API.Controllers
         [Route("{contactId}")]
         public async Task<IActionResult> DeleteContactAsync(int contactId)
         {
-            await _contactRepository.DeleteContactAsync(await _contactRepository.GetContactByIdAsync(contactId));
+            await _contactService.DeleteContactAsync(contactId);
             return Ok();
         }
 
@@ -66,7 +60,7 @@ namespace Rest_API.Controllers
         [Route("AddContact")]
         public async Task<IActionResult> CreateContactAsync(AddContact addContact)
         {
-            await _contactRepository.CreateContactAsync(_mapper.Map<Contact>(addContact));
+            await _contactService.CreateContactAsync(addContact);
             return Ok();
         }
 

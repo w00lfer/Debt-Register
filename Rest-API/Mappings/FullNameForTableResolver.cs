@@ -1,24 +1,22 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Rest_API.Models;
 using Rest_API.Models.DTOs;
-using Rest_API.Repositories.Interfaces;
+using Rest_API.Services.Interfaces;
+using System.Linq;
+using System.Security.Claims;
 
 namespace Rest_API.Mappings
 {
     public class FullNameForTableResolver : IValueResolver<Debt, DebtForTable, string>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IContactRepository _contactRepository;
+        private readonly IUserService _userService;
+        private readonly IContactService _contactService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public FullNameForTableResolver(IUserRepository userRepository, IContactRepository contactRepository, IHttpContextAccessor httpContextAccessor)
+        public FullNameForTableResolver(IContactService contactService, IHttpContextAccessor httpContextAccessor)
         {
-            _userRepository = userRepository;
-            _contactRepository = contactRepository;
+            _contactService = contactService;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -28,11 +26,12 @@ namespace Rest_API.Mappings
             && lenderId == debt.LenderId
                 ? GetBorrowerFullName(debt.IsBorrowerLocal, debt.BorrowerId)
                 : GetLenderFullName(debt.IsLenderLocal, debt.LenderId);
+
         private string GetBorrowerFullName(bool isBorrowerLocal, int borrowerId) => isBorrowerLocal
-            ? _contactRepository.GetContactByIdAsync(borrowerId).Result.FullName
-            : _userRepository.GetUserByIdAsync(borrowerId).Result.FullName;
+            ? _contactService.GetContactFullNameAsync(borrowerId).Result
+            : _userService.GetUserFullNameAsync(borrowerId).Result;
         private string GetLenderFullName(bool isLenderLocal, int lenderId) => isLenderLocal
-            ? _contactRepository.GetContactByIdAsync(lenderId).Result.FullName
-            : _userRepository.GetUserByIdAsync(lenderId).Result.FullName;
+            ? _contactService.GetContactFullNameAsync(lenderId).Result
+            : _userService.GetUserFullNameAsync(lenderId).Result;
     }
 }
