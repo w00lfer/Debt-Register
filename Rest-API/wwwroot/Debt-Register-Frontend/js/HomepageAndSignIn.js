@@ -12,7 +12,7 @@ $('#signUpButton').click(function(e) {
     };
     $.ajax({
         type: 'POST',
-        url: `${apiURL}/Authenticate/Register`,
+        url: `${apiURL}/Account/Register`,
         dataType: 'json',
         data: JSON.stringify(signUpData),
         contentType: 'application/json',
@@ -43,7 +43,7 @@ $(document).on("click", "#btnLogin", () => {
         };
         $.ajax({
             type: 'POST',
-            url: `${apiURL}/Authenticate/Login`,
+            url: `${apiURL}/Account/Login`,
             dataType: 'json',
             data: JSON.stringify(signInData),
             contentType: 'application/json',

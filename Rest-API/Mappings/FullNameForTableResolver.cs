@@ -5,6 +5,7 @@ using Rest_API.Models.DTOs;
 using Rest_API.Services.Interfaces;
 using System.Linq;
 using System.Security.Claims;
+using Rest_API.Services;
 
 namespace Rest_API.Mappings
 {
@@ -14,8 +15,9 @@ namespace Rest_API.Mappings
         private readonly IContactService _contactService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public FullNameForTableResolver(IContactService contactService, IHttpContextAccessor httpContextAccessor)
+        public FullNameForTableResolver(IUserService userService, IContactService contactService, IHttpContextAccessor httpContextAccessor)
         {
+            _userService = userService;
             _contactService = contactService;
             _httpContextAccessor = httpContextAccessor;
         }

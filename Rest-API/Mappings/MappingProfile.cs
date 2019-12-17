@@ -8,7 +8,8 @@ namespace Rest_API.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<User, SignUpUser>();
+            CreateMap<SignUpUser, User>()
+                .ForSourceMember(x => x.Password, opt => opt.DoNotValidate());
             CreateMap<Debt, DebtForTable>()
                 .ForMember(dest => dest.ContactFullName, opts => opts.MapFrom<FullNameForTableResolver>());
             CreateMap<Debt, DebtToOrFromForTable>();

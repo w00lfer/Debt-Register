@@ -158,7 +158,6 @@ function showLentDebtsToBorrower() // activates after search click
 }
 
 function populateLentDebtsTable(data){
-    console.log(data);
     let tableBody = $("#lentDebtsTableBody");
     let rows = ""
     for(let row in data)
@@ -214,7 +213,7 @@ function createViewDebtModal(debtInfo){
                         <h5>Date: ${debtInfo.debtStartDate}</h5>
                         <h5>Lender: ${debtInfo.contactFullName}</h5>
                         <h5>Value: ${debtInfo.value}</h5>
-                        <h5>Is payed? ${debtInfo.payed === true ? "yes" : "no"}</h5>
+                        <h5>Is payed? ${debtInfo.isPayed === true ? "yes" : "no"}</h5>
                     </div>
                     <div class="form-group">
                         <h6>Description: ${debtInfo.description}</h6> 

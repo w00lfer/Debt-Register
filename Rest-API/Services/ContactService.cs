@@ -22,12 +22,15 @@ namespace Rest_API.Services
             _contactRepository = contactRepository;
         }
 
-        public async Task<List<ContactForTable>> GetAllContactsAsync() =>
-            _mapper.Map<List<ContactForTable>>(await _contactRepository.GetByIdAsync((await GetCurrentUserAsync()).Id));
+        public async Task<List<ContactForTable>> GetAllContactsAsync()
+        {
+            var currentUserId = (await GetCurrentUserAsync()).Id;
+            return _mapper.Map<List<ContactForTable>>(_contactRepository.GetAll().Where(x => x.CreatorId == currentUserId));
+        }
 
         public async Task<List<LenderOrBorrowerForTable>> GetAllContactsNamesAsync()
         {
-            int currentUserId = (await GetCurrentUserAsync()).Id;
+            var currentUserId = (await GetCurrentUserAsync()).Id;
             return _mapper.Map<List<LenderOrBorrowerForTable>>(_contactRepository.GetAll().Where(model => model.CreatorId == currentUserId));
         }
 

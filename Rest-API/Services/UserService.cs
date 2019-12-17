@@ -29,7 +29,7 @@ namespace Rest_API.Services
         public async Task<JwtToken> SignUpUserAsync(SignUpUser signUpUser)
         {
             var user = _mapper.Map<User>(signUpUser);
-            if (await _userManager.FindByNameAsync(user.UserName) != null)
+            if (await _userManager.FindByNameAsync(user.UserName) == null)
                 if ((await _userManager.CreateAsync(user, signUpUser.Password)).Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);

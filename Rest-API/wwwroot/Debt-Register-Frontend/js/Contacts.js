@@ -7,6 +7,7 @@ $(document).ready( () => $(".addContact").click( () => createAddContactModal()))
 // ADDING A CONTACT
 $(document).ready(() => {
     $(document).on("click", "#btnAddContact", function(e) {
+        console.log("dupa");
         if(validateContactFullName() && validateContactPhoneNumber())
         {
             let contact = {

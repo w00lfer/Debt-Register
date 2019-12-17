@@ -34,12 +34,12 @@ namespace Rest_API.Services.Interfaces
         public async Task<List<DebtToOrFromForTable>> GetAllLentDebtsToBorrowerAsync(int borrowerId, bool isLocal) =>
             _mapper.Map<List<DebtToOrFromForTable>>(await _debtRepository.GetAllLentDebtsToBorrowerAsync((await GetCurrentUserAsync()).Id, isLocal, borrowerId));
 
-        public async Task<ViewDebt> GetDebtForViewByIdAsync(int debtId) => _mapper.Map<ViewDebt>(await _debtRepository.GetDebtByIdAsync(debtId));
+        public async Task<ViewDebt> GetDebtForViewByIdAsync(int debtId) => _mapper.Map<ViewDebt>(await _debtRepository.GetByIdAsync(debtId));
 
-        public async Task AddDebtAsync(AddBorrowedDebt addBorrowedDebt) => await _debtRepository.CreateDebtAsync(_mapper.Map<Debt>(addBorrowedDebt));
+        public async Task AddDebtAsync(AddBorrowedDebt addBorrowedDebt) => await _debtRepository.CreateAsync(_mapper.Map<Debt>(addBorrowedDebt));
 
-        public async Task AddDebtAsync(AddLentDebt addLentDebt) => await _debtRepository.CreateDebtAsync(_mapper.Map<Debt>(addLentDebt));
+        public async Task AddDebtAsync(AddLentDebt addLentDebt) => await _debtRepository.CreateAsync(_mapper.Map<Debt>(addLentDebt));
 
-        public async Task DeleteDebtAsync(int debtId) => await _debtRepository.DeleteDebtAsync(await _debtRepository.GetDebtByIdAsync(debtId));
+        public async Task DeleteDebtAsync(int debtId) => await _debtRepository.DeleteAsync(debtId);
     }
 }
