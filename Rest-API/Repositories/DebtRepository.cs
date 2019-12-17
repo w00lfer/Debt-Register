@@ -14,20 +14,20 @@ namespace Rest_API.Repositories
         { }
 
         public async Task<IEnumerable<Debt>> GetAllBorrowedDebtsAsync(int userId) =>
-            await GetAll().Where(b => b.BorrowerId == userId).ToListAsync();
+            await GetAll().Where(b => b.BorrowerId == userId && b.IsBorrowerLocal == false).ToListAsync();
 
         public async Task<IEnumerable<Debt>> GetLastBorrowedDebtsAsync(int userId) =>
-            await GetAll().Where(b => b.BorrowerId == userId).OrderByDescending(d => d.DebtStartDate).Take(5).ToListAsync();
+            await GetAll().Where(b => b.BorrowerId == userId && b.IsBorrowerLocal == false).OrderByDescending(d => d.DebtStartDate).Take(5).ToListAsync();
 
         // Gets borrowed debts from person depending on if its local contact or application user
         public async Task<IEnumerable<Debt>> GetAllBorrowedDebtsFromLenderAsync(int userId, bool isLocal, int lenderId) =>
             await GetAll().Where(b => b.BorrowerId == userId && b.IsLenderLocal == isLocal && b.LenderId == lenderId).ToListAsync();
 
         public async Task<IEnumerable<Debt>> GetAllLentDebtsAsync(int userId) =>
-            await GetAll().Where(l => l.LenderId == userId).ToListAsync();
+            await GetAll().Where(l => l.LenderId == userId && l.IsLenderLocal == false).ToListAsync();
 
         public async Task<IEnumerable<Debt>> GetLastLentDebtsAsync(int userId) =>
-            await GetAll().Where(l => l.LenderId == userId).OrderByDescending(d => d.DebtStartDate).Take(5).ToListAsync();
+            await GetAll().Where(l => l.LenderId == userId && l.IsLenderLocal == false).OrderByDescending(d => d.DebtStartDate).Take(5).ToListAsync();
 
         // Gets lent debts to person depending on if its local contact or application user
         public async Task<IEnumerable<Debt>> GetAllLentDebtsToBorrowerAsync(int userId, bool isLocal, int borrowerId) =>
