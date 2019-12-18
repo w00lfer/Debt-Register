@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Text;
 using Rest_API.Repositories;
 using Rest_API.Repositories.Interfaces;
+using FluentValidation.AspNetCore;
 
 namespace Rest_API.Helper
 {
@@ -29,7 +30,7 @@ namespace Rest_API.Helper
             AddAuthenticationWithJWT(services);
             AddDI(services);
             AddSwagger(services);
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>()); // adds mvc and fluent validatio
         }
 
         private static void AddApplicationOptions(this IServiceCollection services, IConfiguration configuration)

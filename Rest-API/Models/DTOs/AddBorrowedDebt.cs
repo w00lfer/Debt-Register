@@ -10,7 +10,6 @@ namespace Rest_API.Models.DTOs
         public DateTime DebtStartDate { get; set; }
         public int LenderId { get; set; }
         public bool IsLenderLocal { get; set; }
-        public bool IsBorrowerLocal { get; set; }
         public bool IsPayed { get; set; }
     }
 }

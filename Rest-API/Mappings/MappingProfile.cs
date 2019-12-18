@@ -9,7 +9,8 @@ namespace Rest_API.Mappings
         public MappingProfile()
         {
             CreateMap<SignUpUser, User>()
-                .ForSourceMember(x => x.Password, opt => opt.DoNotValidate());
+                .ForSourceMember(dest => dest.Password, opt => opt.DoNotValidate())
+                .ForMember(dest => dest.PhoneNumber, opts => opts.MapFrom(src => src.TelephoneNumber));
             CreateMap<Debt, DebtForTable>()
                 .ForMember(dest => dest.ContactFullName, opts => opts.MapFrom<FullNameForTableResolver>());
             CreateMap<Debt, DebtToOrFromForTable>();

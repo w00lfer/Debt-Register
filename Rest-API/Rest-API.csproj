@@ -6,19 +6,20 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\Arek\Downloads\Debt-Register\Rest-API\Rest-API.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20191108151017_ChangeIdentityUserIdToInt.cs" />
-    <Compile Remove="Migrations\20191108151017_ChangeIdentityUserIdToInt.Designer.cs" />
-    <Compile Remove="Migrations\20191108151301_identityUserIdChangedToInt.cs" />
-    <Compile Remove="Migrations\20191108151301_identityUserIdChangedToInt.Designer.cs" />
+    <Compile Remove="Mappings\Migrations\20191108151017_ChangeIdentityUserIdToInt.cs" />
+    <Compile Remove="Mappings\Migrations\20191108151017_ChangeIdentityUserIdToInt.Designer.cs" />
+    <Compile Remove="Mappings\Migrations\20191108151301_identityUserIdChangedToInt.cs" />
+    <Compile Remove="Mappings\Migrations\20191108151301_identityUserIdChangedToInt.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />

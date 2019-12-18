@@ -7,7 +7,6 @@ $(document).ready( () => $(".addContact").click( () => createAddContactModal()))
 // ADDING A CONTACT
 $(document).ready(() => {
     $(document).on("click", "#btnAddContact", function(e) {
-        console.log("dupa");
         if(validateContactFullName() && validateContactPhoneNumber())
         {
             let contact = {
@@ -27,7 +26,7 @@ $(document).ready(() => {
                     $(".btn-cancel-add-contact").click();
                     showContacts();
                 },
-                error: () => alert("Failed to delete a contact")
+                error: () => alert("Failed to add a contact")
             })
         }
         e.preventDefault();
@@ -39,31 +38,32 @@ $(document).ready( () => $("tbody").on("click", ".editContact", function(e) {
 }));
 
 // EDIT A CONTACT
-$(document).ready( () => {
+$(document).ready(() => {
     $(document).on("click", "#btnEditContact", function(e) {
-        let contactId = $("#formEditContact").attr("data-contact-id");
-        let contact = {
-            id: parseInt($("#formEditContact").attr("data-contact-id")),
-            fullName : $("#contactFullName").val(),
-            phoneNumber: $("#contactPhoneNumber").val()
-        };
-        $.ajax({
-            type: 'PUT',
-            url: `${apiURL}/Contact/${contactId}`,
-            data: JSON.stringify(contact),
-            contentType: 'application/json',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            },
-            success: () => {
-                alert("You have successfuly edited a contact");
-                $(".btn-cancel-edit-contact").click();
-                showContacts();
-            },
-            error: () => alert("Failed to edited a contact")
-        });
+        if(validateContactFullName() && validateContactPhoneNumber())
+        {
+            let contact = {
+                id: parseInt($("#formEditContact").attr("data-contact-id")),
+                fullName : $("#contactFullName").val(),
+                phoneNumber: $("#contactPhoneNumber").val()};
+            $.ajax({
+                type: 'PUT',
+                url: `${apiURL}/Contact/EditContact`,
+                data: JSON.stringify(contact),
+                contentType: 'application/json',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+                success: () => {
+                    alert("You have successfuly edited a contact");
+                    $(".btn-cancel-edit-contact").click();
+                    showContacts();
+                },
+                error: () => alert("Failed to edit a contact")
+            })
+        }
         e.preventDefault();
-    });
+    })
 });
 
 // DELETING A CONTACT

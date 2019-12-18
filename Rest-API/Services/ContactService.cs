@@ -5,6 +5,7 @@ using Rest_API.Models;
 using Rest_API.Models.DTOs;
 using Rest_API.Repositories.Interfaces;
 using Rest_API.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,6 +43,7 @@ namespace Rest_API.Services
 
         public async Task EditContactAsync(EditContact editContact)
         {
+            if ((await GetCurrentUserAsync()).Id != (await _contactRepository.GetByIdAsync(editContact.Id)).CreatorId) throw new Exception("You are not owner of this contact!");
             await _contactRepository.UpdateAsync(_mapper.Map<Contact>(editContact));
         }
 
