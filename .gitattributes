@@ -2,8 +2,8 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
-Rest-API/wwwroot/Debt-Register-Frontend/lib/* linguist-vendored
-Rest-API/wwwroot/Debt-Register-Frontend/bootstrap-4.3.1-dist/* linguist-vendored
+Frontend/* linguist-vendored
+Frontend/* linguist-vendored
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
