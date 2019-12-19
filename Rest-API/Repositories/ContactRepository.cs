@@ -8,6 +8,5 @@ namespace Rest_API.Repositories
         public ContactRepository(AppDbContext appDbContext)
             : base(appDbContext)
         { }
-
     }
 }

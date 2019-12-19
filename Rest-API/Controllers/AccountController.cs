@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Rest_API.Models.DTOs;
 using Rest_API.Services.Interfaces;
@@ -16,7 +15,7 @@ namespace Rest_API.Controllers
 
         public AccountController(IUserService userService) => _userService = userService;
 
-                [HttpPost]
+        [HttpPost]
         [AllowAnonymous]
         [Route("Login")]
         public async Task<IActionResult> Login(SignInUser signInUser) => Ok(await _userService.SignInUserAsync(signInUser));

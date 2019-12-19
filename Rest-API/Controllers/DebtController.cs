@@ -14,12 +14,7 @@ namespace Rest_API.Controllers
     public class DebtController : ControllerBase
     {
         private readonly IDebtService _debtService;
-        private readonly IMapper _mapper;
-        public DebtController(IDebtService debtService, IMapper mapper)
-        {
-            _debtService = debtService;
-            _mapper = mapper;
-        }
+        public DebtController(IDebtService debtService, IMapper mapper) =>  _debtService = debtService;
 
         [HttpGet]
         [Route("Borrowed")]
@@ -63,7 +58,7 @@ namespace Rest_API.Controllers
         public async Task<IActionResult> AddBorrowedDebtAsync(AddBorrowedDebt addBorrowedDebt)
         {
             await _debtService.AddDebtAsync(addBorrowedDebt);
-            return Ok();
+            return Ok("You have added borrowed debt successfully");
         }
 
         [HttpPost]
@@ -71,7 +66,7 @@ namespace Rest_API.Controllers
         public async Task<IActionResult> AddLentDebtAsync(AddLentDebt addLentDebt)
         {
             await _debtService.AddDebtAsync(addLentDebt);
-            return Ok();
+            return Ok("You have added lent debt successfully");
         }
 
         [HttpDelete]
@@ -79,7 +74,7 @@ namespace Rest_API.Controllers
         public async Task<IActionResult> DeleteDebtAsync(int debtId)
         {
             await _debtService.DeleteDebtAsync(debtId);
-            return Ok();
+            return Ok("You have edited debt successfully");
         }
     }
 }

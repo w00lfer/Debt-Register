@@ -1,16 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Rest_API.Models;
-using Rest_API.Repositories.Interfaces;
-using System;
+using Rest_API.Models.DTOs;
+using Rest_API.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
-using Rest_API.Models.DTOs;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using System.Linq;
-using Microsoft.AspNetCore.Identity;
-using Rest_API.Services.Interfaces;
 
 namespace Rest_API.Controllers
 {
@@ -52,18 +46,15 @@ namespace Rest_API.Controllers
         public async Task<IActionResult> DeleteContactAsync(int contactId)
         {
             await _contactService.DeleteContactAsync(contactId);
-            return Ok();
+            return Ok("You have deleted contact successfully");
         }
 
-        // TO DO CREATION OF CONTACT WITH VALIDATION ON FULLNAME TO BE NOT THE SAME AS OTHER ONE FOR SAME USER!
         [HttpPost]
         [Route("AddContact")]
         public async Task<IActionResult> CreateContactAsync(AddContact addContact)
         {
             await _contactService.CreateContactAsync(addContact);
-            return Ok();
+            return Ok("You have added contact successfully");
         }
-
-        private int GetCurrentUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
     }
 }

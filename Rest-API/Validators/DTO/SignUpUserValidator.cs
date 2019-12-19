@@ -15,10 +15,14 @@ namespace Rest_API.Validators.DTO
                 .Length(6, 16).WithMessage("Password's length must be between 6 and 16 characters")
                 .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.,]).*$").WithMessage("Password must contain atleast one uppercased letter and one lowercased letter");
             RuleFor(u => u.Email)
+                .NotEmpty().WithMessage("Email can't be empty")
                 .EmailAddress().WithMessage("Email adress is invalid");
             RuleFor(u => u.TelephoneNumber)
+                .NotEmpty().WithMessage("Phone number can't be empty")
                 .Matches(@"^([0-9]{3})([0-9]{3})([0-9]{3})$").WithMessage("Telephone number is invalid");
-
+            RuleFor(u => u.FullName)
+                .NotEmpty().WithMessage("Fullname is required")
+                .Matches(@"^([A-Za-z]{3,})+\s+([A-Za-z]{3,})+$").WithMessage("Fullname must contain fullname and surrname, each one with atleast 3 characters");
         }
     }
 }

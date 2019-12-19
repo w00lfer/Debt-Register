@@ -8,8 +8,10 @@ namespace Rest_API.Validators.DTO
         public AddContactValidator()
         {
             RuleFor(c => c.FullName)
-                .Matches(@"^([A-Za-z]{3,})+\s+([A-Za-z]{3,})+$").WithMessage("Fullname must contain fullname and surrname, each one with atleast 3characters");
+                .NotEmpty().WithMessage("Fullname can't be empty")
+                .Matches(@"^([A-Za-z]{3,})+\s+([A-Za-z]{3,})+$").WithMessage("Fullname must contain fullname and surrname, each one with atleast 3 characters");
             RuleFor(c => c.PhoneNumber)
+                .NotEmpty().WithMessage("Phone number can't be empty")
                 .Matches(@"^([0-9]{3})([0-9]{3})([0-9]{3})$").WithMessage("Telephone number is invalid");
         }
     }

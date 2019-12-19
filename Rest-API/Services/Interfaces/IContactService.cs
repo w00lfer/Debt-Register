@@ -14,6 +14,5 @@ namespace Rest_API.Services.Interfaces
         Task DeleteContactAsync(int contactId);
         Task CreateContactAsync(AddContact addContact);
         Task<string> GetContactFullNameAsync(int contactId);
-
     }
 }

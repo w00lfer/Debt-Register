@@ -12,7 +12,6 @@ namespace Rest_API.Repositories
         public DebtRepository(AppDbContext appDbContext)
             : base(appDbContext)
         { }
-
         public async Task<IEnumerable<Debt>> GetAllBorrowedDebtsAsync(int userId) =>
             await GetAll().Where(b => b.BorrowerId == userId && b.IsBorrowerLocal == false).ToListAsync();
 

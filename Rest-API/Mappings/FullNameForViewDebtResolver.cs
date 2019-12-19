@@ -14,7 +14,6 @@ namespace Rest_API.Mappings
         private readonly IContactService _contactService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-
         public FullNameForViewDebtResolver(IUserService userService, IContactService contactService, IHttpContextAccessor httpContextAccessor)
         {
             _userService = userService;

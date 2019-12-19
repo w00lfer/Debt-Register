@@ -9,11 +9,8 @@ namespace Rest_API.Repositories.Interfaces
     {
         IQueryable<TEntity> GetAll();
         Task<TEntity> GetByIdAsync(int id);
-
         Task CreateAsync(TEntity entity);
-
         Task UpdateAsync(TEntity entity);
-
         Task DeleteAsync(int id);
     }
 }

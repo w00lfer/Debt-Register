@@ -21,7 +21,7 @@ $('#signUpButton').click(function(e) {
             localStorage.setItem("token", data.token);
             window.location.href = "Summary.html";  
         },
-        error: () => alert("Data given is incorrect!")
+        error: (data) => console.log(`dat`)
     });
     return false;
 });

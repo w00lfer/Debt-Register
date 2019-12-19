@@ -52,7 +52,6 @@ namespace Rest_API
             {
                 endpoints.MapControllers();
             });
-
         }
     }
 }

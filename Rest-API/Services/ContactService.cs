@@ -43,7 +43,7 @@ namespace Rest_API.Services
 
         public async Task EditContactAsync(EditContact editContact)
         {
-            if ((await GetCurrentUserAsync()).Id != (await _contactRepository.GetByIdAsync(editContact.Id)).CreatorId) throw new Exception("You are not owner of this contact!");
+            if ((await GetCurrentUserAsync()).Id != (await _contactRepository.GetByIdAsync(editContact.Id)).CreatorId) throw new Exception("You cannot edit this contact because you are not owner of this contact!");
             await _contactRepository.UpdateAsync(_mapper.Map<Contact>(editContact));
         }
 

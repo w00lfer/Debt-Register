@@ -12,6 +12,5 @@ namespace Rest_API.Repositories.Interfaces
         Task<IEnumerable<Debt>> GetAllLentDebtsAsync(int userId);
         Task<IEnumerable<Debt>> GetLastLentDebtsAsync(int userId);
         Task<IEnumerable<Debt>> GetAllLentDebtsToBorrowerAsync(int userId, bool isLocal, int borrowerId);
-
     }
 }
