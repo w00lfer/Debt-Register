@@ -1,9 +1,5 @@
 ﻿using FluentValidation;
 using Rest_API.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rest_API.Validators.DTO
 {
@@ -17,7 +13,7 @@ namespace Rest_API.Validators.DTO
                 .NotEmpty().WithMessage("Value can't be empty")
                 .GreaterThan(0).WithMessage("Value must be higher than 1");
             RuleFor(d => d.BorrowerId)
-                .GreaterThanOrEqualTo(1).WithMessage("Lender id must be higher than 1");
+               .GreaterThanOrEqualTo(1).WithMessage("Lender id must be higher than 1");
         }
     }
 }
