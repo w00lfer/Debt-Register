@@ -24,7 +24,10 @@ I have built this application using:
 * [HTML](#)
 * [CSS](#)
 * [JavaScript](#) - ```Vanilla JS and jQuery```
-
+## Other tools
+These are other nice things i have used to build this application
+* [Swagger](https://swagger.io)
+* [Automapper](https://automapper.org)
 
 <!-- GETTING STARTED -->
 ## Getting Started
