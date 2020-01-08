@@ -8,7 +8,7 @@ namespace Rest_API.Models
         public int CreatorId { get; set; }
 
         [Required(ErrorMessage = "Fullname is required")]
-        [RegularExpression(@"^([A-Za-z]{3,})+\s+([A-Za-z]{3,})+$", ErrorMessage = "Fullname must contain fullname and surrname, each one with atleast 3 characters")]
+        [RegularExpression(@"^([A-Za-z]{3,})+\s+([A-Za-z]{3,})+$", ErrorMessage = "Fullname must contain fullname and surname, each one with at least 3 characters")]
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Fullname is required")]

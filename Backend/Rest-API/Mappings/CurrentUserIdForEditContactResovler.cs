@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Rest_API.Models;
 using Rest_API.Models.DTOs;
-using System;
 using System.Linq;
 using System.Security.Claims;
 
@@ -14,6 +13,6 @@ namespace Rest_API.Mappings
         public CurrentUserIdForEditContactResolver(IHttpContextAccessor httpContextAccessor) => _httpContextAccessor = httpContextAccessor;
 
         public int Resolve(EditContact editContact, Contact contact, int creatorId, ResolutionContext context) =>
-            Int32.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            int.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
     }
 }

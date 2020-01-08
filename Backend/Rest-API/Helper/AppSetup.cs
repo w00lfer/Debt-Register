@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,15 +9,14 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Rest_API.Mappings;
 using Rest_API.Models;
+using Rest_API.Repositories;
+using Rest_API.Repositories.Interfaces;
 using Rest_API.Services;
 using Rest_API.Services.Interfaces;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Rest_API.Repositories;
-using Rest_API.Repositories.Interfaces;
-using FluentValidation.AspNetCore;
 
 namespace Rest_API.Helper
 {
@@ -70,7 +70,7 @@ namespace Rest_API.Helper
                 c.AddSecurityRequirement(securityRequirement);
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(xmlPath);
             });
         }
         private static void AddDI(this IServiceCollection services)

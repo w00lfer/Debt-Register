@@ -15,7 +15,7 @@ namespace Rest_API.Controllers
     {
         private readonly IContactService _contactService;
 
-        public ContactController(IContactService contactSerivce) => _contactService = contactSerivce;
+        public ContactController(IContactService contactService) => _contactService = contactService;
 
 
         [HttpGet]

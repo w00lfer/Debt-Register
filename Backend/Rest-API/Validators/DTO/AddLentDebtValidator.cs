@@ -8,7 +8,7 @@ namespace Rest_API.Validators.DTO
         public AddLentDebtValidator()
         {
             RuleFor(d => d.Name)
-                .NotEmpty().WithMessage("Debt name can't be empy");
+                .NotEmpty().WithMessage("Debt name can't be empty");
             RuleFor(d => d.Value)
                 .NotEmpty().WithMessage("Value can't be empty")
                 .GreaterThan(0).WithMessage("Value must be higher than 1");

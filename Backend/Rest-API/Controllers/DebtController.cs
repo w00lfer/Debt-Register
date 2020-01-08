@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Rest_API.Models.DTOs;
 using Rest_API.Services.Interfaces;
@@ -14,7 +13,8 @@ namespace Rest_API.Controllers
     public class DebtController : ControllerBase
     {
         private readonly IDebtService _debtService;
-        public DebtController(IDebtService debtService, IMapper mapper) =>  _debtService = debtService;
+
+        public DebtController(IDebtService debtService) =>  _debtService = debtService;
 
         [HttpGet]
         [Route("Borrowed")]

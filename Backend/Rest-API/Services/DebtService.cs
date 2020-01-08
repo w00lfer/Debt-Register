@@ -6,8 +6,9 @@ using Rest_API.Models.DTOs;
 using Rest_API.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Rest_API.Services.Interfaces;
 
-namespace Rest_API.Services.Interfaces
+namespace Rest_API.Services
 {
     public class DebtService : BaseService, IDebtService
     {

@@ -9,10 +9,10 @@ namespace Rest_API.Validators.DTO
         {
             RuleFor(p => p.CurrentPassword)
                 .NotEmpty().WithMessage("Current password can't be empty")
-                .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.,]).*$").WithMessage("Password must contain atleast one uppercased letter and one lowercased letter");
+                .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.,]).*$").WithMessage("Password must contain at least one upper cased letter and one lowercased letter");
             RuleFor(p => p.NewPassword)
                 .NotEmpty().WithMessage("Current password can't be empty")
-                .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.,]).*$").WithMessage("Password must contain atleast one uppercased letter and one lowercased letter");
+                .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.,]).*$").WithMessage("Password must contain at least one upper cased letter and one lowercased letter");
         }
     }
 }
