@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Rest_API_Tests.ServicesTests
@@ -82,13 +83,13 @@ namespace Rest_API_Tests.ServicesTests
                     new Contact() {Id = contactId + 1, CreatorId = currentUserId + 1, FullName = secondContactName, PhoneNumber = secondContactPhoneNumber},
                     new Contact() {Id = contactId + 2, CreatorId = currentUserId, FullName = thirdContactName, PhoneNumber = thirdContactPhoneNumber}
                 }.AsQueryable();
+            _contactRepositoryMock.Setup(x => x.GetAll())
+                .Returns(contacts);
             _mapperMock.Setup(x => x.Map<List<ContactForTable>>(It.IsAny<IQueryable<Contact>>())).Returns(new List<ContactForTable>
             {
                 new ContactForTable() {Id = contactId, FullName = firstContactName, PhoneNumber = firstContactPhoneNumber},
                 new ContactForTable() {Id = contactId + 2, FullName = thirdContactName, PhoneNumber = thirdContactPhoneNumber}
             });
-            _contactRepositoryMock.Setup(x => x.GetAll())
-                .Returns(contacts);
 
             // Act
             var contactsFromRepositoryForCurrentUser = await _sut.GetAllContactsAsync();
@@ -116,19 +117,69 @@ namespace Rest_API_Tests.ServicesTests
                     new Contact() {Id = contactId + 1, CreatorId = currentUserId + 1, FullName = secondContactName, PhoneNumber = secondContactPhoneNumber},
                     new Contact() {Id = contactId + 2, CreatorId = currentUserId, FullName = thirdContactName, PhoneNumber = thirdContactPhoneNumber}
                 }.AsQueryable();
+            _contactRepositoryMock.Setup(x => x.GetAll())
+                .Returns(contacts);
             _mapperMock.Setup(x => x.Map<List<LenderOrBorrowerForTable>>(It.IsAny<IQueryable<Contact>>())).Returns(new List<LenderOrBorrowerForTable>
             {
                 new LenderOrBorrowerForTable() {Id = contactId, FullName = firstContactName},
                 new LenderOrBorrowerForTable() {Id = contactId + 2, FullName = thirdContactName}
             });
-            _contactRepositoryMock.Setup(x => x.GetAll())
-                .Returns(contacts);
 
             // Act
-            var contactsFromRepositoryForCurrentUser = await _sut.GetAllContactsAsync();
+            var contactsFromRepositoryForCurrentUser = await _sut.GetAllContactsNamesAsync();
 
             // Assert
             Assert.AreEqual(_mapperMock.Object.Map<List<LenderOrBorrowerForTable>>(contacts), contactsFromRepositoryForCurrentUser);
+        }
+
+        [Test]
+        public async Task GetContactFullNameAsync_ShouldReturnContactFullName_WhenContactExist()
+        {
+            // Arrange
+            var contactId = 1;
+            var creatorId = 1;
+            var contactFullName = "John Doe";
+            var contactPhoneNumber = "123123123";
+            var contact = new Contact
+            {
+                Id = contactId,
+                CreatorId = creatorId,
+                FullName = contactFullName,
+                PhoneNumber = contactPhoneNumber
+            };
+            _contactRepositoryMock.Setup(x => x.GetByIdAsync(contactId))
+                .ReturnsAsync(contact);
+
+            // Act
+            var contactFullNameFromRepository = await _sut.GetContactFullNameAsync(contactId);
+
+            // Assert
+            Assert.AreEqual(contact.FullName, contactFullNameFromRepository);
+        }
+
+        [Test]
+        public async Task DeleteContactAsync_ShouldDeleteContact_WhenContactExists()
+        {
+            // Arrange
+            var contactId = 1;
+
+            // Act
+            await _sut.DeleteContactAsync(contactId);
+
+            // Assert
+            _contactRepositoryMock.Verify(c => c.DeleteAsync(contactId), Times.Once());
+        }
+
+        [Test]
+        public async Task TestExample()
+        {
+            // Arrange
+
+
+            // Act
+
+
+            // Assert
         }
 
         private void SetUpUserManagerToGetCurrentUser()
