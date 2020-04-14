@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rest-API</name>
+    </assembly>
+    <members>
+        <member name="T:Rest_API.Models.Contact">
+            <summary>
+            Mode for users without account for tracking debts for a specific person
+            </summary>
+        </member>
+    </members>
+</doc>
