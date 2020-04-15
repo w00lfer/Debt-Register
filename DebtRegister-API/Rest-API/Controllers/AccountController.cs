@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rest_API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -15,33 +16,12 @@ namespace Rest_API.Controllers
 
         public AccountController(IUserService userService) => _userService = userService;
 
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("Login")]
-        public async Task<IActionResult> Login(SignInUser signInUser) => Ok(await _userService.SignInUserAsync(signInUser));
-
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("Register")]
-        public async Task<IActionResult> Register(SignUpUser signUpUser) => Ok(await _userService.SignUpUserAsync(signUpUser));
-
-        [HttpPost]
-        [Authorize]
-        [Route("Logout")]
-        public async Task<IActionResult> Logout()
-        {
-            await _userService.LogoutAsync();
-            return Ok("You have logout successfuly");
-        }
-
         [HttpGet]
-        [Authorize]
         [Route("UsersFullNames")]
         public async Task<List<LenderOrBorrowerForTable>> GetAllUsersFullNamesAsync() =>
            await _userService.GetAllUsersExceptCurrentForTableAsync();
 
         [HttpPost]
-        [Authorize]
         [Route("ChangePassword")]
         public async Task<IActionResult> ChangeUserPassword(ChangePassword changePassword)
         {
@@ -50,7 +30,6 @@ namespace Rest_API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [Route("ChangeUserFullNameAsync")]
         public async Task<IActionResult> ChangeUserFullName([FromForm] string userFullName)
         {
@@ -59,7 +38,6 @@ namespace Rest_API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [Route("ChangePhoneNumber")]
         public async Task<IActionResult> ChangeUserPhoneNumber([FromForm] string userPhoneNumber)
         {
@@ -68,7 +46,6 @@ namespace Rest_API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [Route("UserProfile")]
         public async Task<UserInfoForProfile> GetUserInfoForProfile() =>
             await _userService.GetUserInfoForProfileAsync();

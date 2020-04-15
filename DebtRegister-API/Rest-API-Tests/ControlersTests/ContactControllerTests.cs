@@ -69,7 +69,7 @@ namespace Rest_API_Tests.ControlersTests
                 new Contact { Id = 7, FullName = "Maciej", CreatorId = 4, PhoneNumber = "999999999" }
             };
             var contactService = Mock.Of<IContactService>
-                (x => x.GetContactByIdAsync(contactId) == Task.FromResult(contacts.First(x => x.Id == contactId)));
+                (x => x.GetContactByIdAsync(contactId) == Task.FromResult(contacts.First(y => y.Id == contactId)));
             var contactController = new ContactController(contactService);
 
             //ACT

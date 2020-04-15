@@ -1,0 +1,19 @@
+<mat-sidenav-container>
+    <mat-toolbar color="primary">
+        <a mat-button [routerLink]="['/summary']">Debt Register</a>
+        <div *ngIf="loggedIn()">
+                <a mat-button [routerLink]="['/lent']">Lent</a>
+                <a mat-button [routerLink]="['/borrowed']">Borrowed</a>
+                <a mat-button [routerLink]="['/contacts']">Contacts</a>
+        </div>
+        <div class="spacer"></div>
+        <button *ngIf="!loggedIn()" mat-button (click)="openSignInDialog()">Sign in</button>
+        <div *ngIf="loggedIn()" class="user-dropdown">
+            <button mat-button [matMenuTriggerFor]="menu">Welcome {{authService.decodedToken?.unique_name | titlecase}}</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>Account settings</button>
+                <button mat-menu-item (click)="logout()">Logout</button>
+            </mat-menu>
+        </div>
+    </mat-toolbar>
+</mat-sidenav-container>

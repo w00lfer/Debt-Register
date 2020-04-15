@@ -13,9 +13,6 @@ using Rest_API.Repositories;
 using Rest_API.Repositories.Interfaces;
 using Rest_API.Services;
 using Rest_API.Services.Interfaces;
-using System;
-using System.IO;
-using System.Reflection;
 using System.Text;
 
 namespace Rest_API.Helper
@@ -68,9 +65,9 @@ namespace Rest_API.Helper
                 var securityRequirement = new OpenApiSecurityRequirement();
                 securityRequirement.Add(securitySchema, new[] { "Bearer" });
                 c.AddSecurityRequirement(securityRequirement);
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //c.IncludeXmlComments(xmlPath);
             });
         }
         private static void AddDI(this IServiceCollection services)
